@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AWWMS</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="left">
+        <h1 id="current_page_title">Areas</h1>
+        <ul id="navbar">
+          <li class="navbar_links"><a href="index.html">Dashboard</a></li>
+          <li class="navbar_links"><a href="users.html">Users</a></li>
+          <li class="navbar_links"><a href="areas.html">Areas</a></li>
+          <li class="navbar_links"><a href="distribution.html">Distribution</a></li>
+          <li class="navbar_links"><a href="monitoring.html">Monitoring</a></li>
+          <li class="navbar_links"><a href="billing.html">Billing</a></li>
+          <li class="navbar_links"><a href="complaints.html">Complaints</a></li>
+        </ul>
+      </div>
+
+      <div id="right">
+        <h1 id="PageTitle">Area Wise Water Management System</h1>
+
+        <div class="form-section">
+          <h2>Add New Area</h2>
+          <form id="areaForm">
+            <input
+              type="text"
+              id="areaName"
+              name="areaName"
+              placeholder="Enter Area Name"
+              required
+            />
+            <input
+              type="text"
+              id="region"
+              name="region"
+              placeholder="Enter Region"
+              required
+            />
+            <input
+              type="number"
+              id="population"
+              name="population"
+              placeholder="Enter Population"
+              required
+            />
+            <input
+              type="text"
+              id="waterSource"
+              name="waterSource"
+              placeholder="Water Source (e.g., river, tube well)"
+              required
+            />
+            <button type="submit">Add Area</button>
+          </form>
+        </div>
+
+        <div class="table-section">
+          <h2>Existing Areas</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Area ID</th>
+                <th>Area Name</th>
+                <th>Region</th>
+                <th>Population</th>
+                <th>Water Source</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="areaTableBody">
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <button>Edit</button>
+                  <button>Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <button>Edit</button>
+                  <button>Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
