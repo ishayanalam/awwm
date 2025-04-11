@@ -1,0 +1,140 @@
+body {
+    font-family: Poppins;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+  }
+  .container {
+    display: flex;
+    min-height: 100vh;
+  }
+  #left {
+    width: 200px;
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+  }
+  #right {
+    flex: 1;
+    padding: 20px;
+    background-color: white;
+  }
+  #navbar {
+    list-style-type: none;
+    padding: 0;
+  }
+  .navbar_links a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px 0;
+  }
+  .navbar_links a:hover {
+    color: #3498db;
+  }
+  #current_page_title {
+    color: #3498db;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+  }
+  #PageTitle {
+    color: #2c3e50;
+    border-bottom: 2px solid #2c3e50;
+    padding-bottom: 10px;
+  }
+  .dashboard_section {
+    margin-bottom: 30px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  th {
+    background-color: #3498db;
+    color: white;
+  }
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  .action_button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-right: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .action_button:hover {
+    background-color: #2980b9;
+  }
+  #distribution_stats p {
+    background-color: #e8f4fc;
+    padding: 10px;
+    border-left: 4px solid #3498db;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+  }
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    border-radius: 5px;
+  }
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .close:hover {
+    color: black;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .submit-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .submit-btn:hover {
+    background-color: #2980b9;
+  }
