@@ -1,0 +1,64 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Poppins;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #f5f5f5;
+} 
+  
+  .wrapper {
+    width: 500px;
+    background: #3498db;
+    color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+  }
+
+  .wrapper h1 {
+    font-size: 36px ;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .input-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-box label {
+    width: 100px;
+    font-weight: bold;
+  }
+  
+  .input-box input {
+    flex: 1;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  button {
+    background-color: #3498db;
+    color: white;
+    border: #fff;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  button:hover {
+    background-color: #2980b9;
+  }
+  .action-buttons button {
+    width: auto;
+    margin-right: 5px;
+    padding: 8px 12px;
+  }
