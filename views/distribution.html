@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AWWMS</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/style/style.css" />
   </head>
   <body>
     <div class="container">
@@ -14,7 +14,9 @@
           <li class="navbar_links"><a href="index.html">Dashboard</a></li>
           <li class="navbar_links"><a href="users.html">Users</a></li>
           <li class="navbar_links"><a href="areas.html">Areas</a></li>
-          <li class="navbar_links"><a href="distribution.html">Distribution</a></li>
+          <li class="navbar_links">
+            <a href="distribution.html">Distribution</a>
+          </li>
           <li class="navbar_links"><a href="monitoring.html">Monitoring</a></li>
           <li class="navbar_links"><a href="billing.html">Billing</a></li>
           <li class="navbar_links"><a href="complaints.html">Complaints</a></li>
@@ -26,9 +28,18 @@
           <div class="dashboard_section">
             <h2>Water Distribution Overview</h2>
             <div id="distribution_stats">
-              <p><strong>Total Areas Covered:</strong> <span id="totalAreas"></span></p>
-              <p><strong>Total Water Distributed:</strong> <span id="totalWater"></span></p>
-              <p><strong>Average Distribution per Area:</strong> <span id="avgWater"></span></p>
+              <p>
+                <strong>Total Areas Covered:</strong>
+                <span id="totalAreas"></span>
+              </p>
+              <p>
+                <strong>Total Water Distributed:</strong>
+                <span id="totalWater"></span>
+              </p>
+              <p>
+                <strong>Average Distribution per Area:</strong>
+                <span id="avgWater"></span>
+              </p>
             </div>
           </div>
 
@@ -80,7 +91,9 @@
 
           <div class="dashboard_section">
             <h2>Actions</h2>
-            <button class="action_button" id="distributeBtn">Distribute Water</button>
+            <button class="action_button" id="distributeBtn">
+              Distribute Water
+            </button>
             <button class="action_button" id="reportBtn">View Reports</button>
             <button class="action_button" id="manageBtn">Manage Areas</button>
           </div>
@@ -106,11 +119,17 @@
           </div>
           <div class="form-group">
             <label for="waterAmount">Water Amount (Liters):</label>
-            <input type="number" id="waterAmount" required min="100" step="100">
+            <input
+              type="number"
+              id="waterAmount"
+              required
+              min="100"
+              step="100"
+            />
           </div>
           <div class="form-group">
             <label for="distributionDate">Distribution Date:</label>
-            <input type="datetime-local" id="distributionDate" required>
+            <input type="datetime-local" id="distributionDate" required />
           </div>
           <button type="submit" class="submit-btn">Submit Distribution</button>
         </form>
@@ -127,58 +146,62 @@
           <p><strong>Areas with Lowest Demand:</strong></p>
           <p><strong>Total Distribution This Month:</strong></p>
         </div>
-        <button class="action_button" style="margin-top: 20px;">Download Full Report</button>
+        <button class="action_button" style="margin-top: 20px">
+          Download Full Report
+        </button>
       </div>
       <script>
         const distributeModal = document.getElementById("distributeModal");
         const reportModal = document.getElementById("reportModal");
-        
+
         const distributeBtn = document.getElementById("distributeBtn");
         const reportBtn = document.getElementById("reportBtn");
         const manageBtn = document.getElementById("manageBtn");
-        
+
         // popup close(lab)
         const closeBtns = document.getElementsByClassName("close");
-        
+
         // distribute e click krle popup window open(lab)
-        distributeBtn.onclick = function() {
+        distributeBtn.onclick = function () {
           distributeModal.style.display = "block";
-        }
-        
+        };
+
         // view e click krle popup window open(lab)
-        reportBtn.onclick = function() {
+        reportBtn.onclick = function () {
           reportModal.style.display = "block";
-        }
-        
+        };
+
         // manage e click krle area page e jai(lab)
-        manageBtn.onclick = function() {
+        manageBtn.onclick = function () {
           window.location.href = "areas.html";
-        }
-        
+        };
+
         for (let i = 0; i < closeBtns.length; i++) {
-          closeBtns[i].onclick = function() {
+          closeBtns[i].onclick = function () {
             distributeModal.style.display = "none";
             reportModal.style.display = "none";
-          }
+          };
         }
-        
-        window.onclick = function(event) {
+
+        window.onclick = function (event) {
           if (event.target == distributeModal) {
             distributeModal.style.display = "none";
           }
           if (event.target == reportModal) {
             reportModal.style.display = "none";
           }
-        }
+        };
         // submission form handle kora(lab)
-        document.getElementById("distributeForm").onsubmit = function(e) {
+        document.getElementById("distributeForm").onsubmit = function (e) {
           e.preventDefault();
           // value pass krsi(lab)
           const area = document.getElementById("areaSelect").value;
           const amount = document.getElementById("waterAmount").value;
           const date = document.getElementById("distributionDate").value;
-          
-          alert(`Water distribution scheduled for ${area}:\nAmount: ${amount} Liters\nDate: ${date}`);
+
+          alert(
+            `Water distribution scheduled for ${area}:\nAmount: ${amount} Liters\nDate: ${date}`
+          );
           // popup close(lab)
           distributeModal.style.display = "none";
           this.reset();

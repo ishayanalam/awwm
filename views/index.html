@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AWWMS - Dashboard</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../assets/style/style.css" />
   </head>
   <body>
     <div class="container">
@@ -14,7 +14,9 @@
           <li class="navbar_links"><a href="index.html">Dashboard</a></li>
           <li class="navbar_links"><a href="users.html">Users</a></li>
           <li class="navbar_links"><a href="areas.html">Areas</a></li>
-          <li class="navbar_links"><a href="distribution.html">Distribution</a></li>
+          <li class="navbar_links">
+            <a href="distribution.html">Distribution</a>
+          </li>
           <li class="navbar_links"><a href="monitoring.html">Monitoring</a></li>
           <li class="navbar_links"><a href="billing.html">Billing</a></li>
           <li class="navbar_links"><a href="complaints.html">Complaints</a></li>
@@ -25,27 +27,40 @@
         <h1 id="PageTitle">Area Wise Water Management System</h1>
 
         <div class="dashboard_section">
-          
           <h2>System Overview</h2>
 
           <div id="dashboard_overview">
-
             <p><strong>Total Registered Users:</strong></p>
             <p><strong>Total Areas Covered:</strong></p>
             <p><strong>Active Distributions:</strong></p>
             <p><strong>Complaints Resolved:</strong></p>
             <p><strong>Complaints Pending:</strong></p>
-
           </div>
         </div>
 
         <div class="dashboard_section">
           <h2>Quick Actions</h2>
-          <button class="action_button" onclick="location.href='users.html'">Manage Users</button>
-          <button class="action_button" onclick="location.href='areas.html'">Manage Areas</button>
-          <button class="action_button" onclick="location.href='distribution.html'">Distribution Overview</button>
-          <button class="action_button" onclick="location.href='monitoring.html'">Monitoring Panel</button>
-          <button class="action_button" onclick="location.href='billing.html'">View Billing</button>
+          <button class="action_button" onclick="location.href='users.html'">
+            Manage Users
+          </button>
+          <button class="action_button" onclick="location.href='areas.html'">
+            Manage Areas
+          </button>
+          <button
+            class="action_button"
+            onclick="location.href='distribution.html'"
+          >
+            Distribution Overview
+          </button>
+          <button
+            class="action_button"
+            onclick="location.href='monitoring.html'"
+          >
+            Monitoring Panel
+          </button>
+          <button class="action_button" onclick="location.href='billing.html'">
+            View Billing
+          </button>
         </div>
       </div>
     </div>

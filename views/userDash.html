@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AWWMS - Dashboard</title>
-    <link rel="stylesheet" href="userDash.css" />
-    
+    <link rel="stylesheet" href="../assets/style/userDash.css" />
   </head>
   <body>
     <div class="container">
@@ -30,9 +29,15 @@
 
         <div class="dashboard_section">
           <h2>Quick Actions</h2>
-          <button class="action_button" onclick="openPopup('usagePopup')">Water Usage Monitoring</button>
-          <button class="action_button" onclick="openPopup('billingPopup')">Billing Info</button>
-          <button class="action_button" onclick="openPopup('complaintPopup')">File Complaint</button>
+          <button class="action_button" onclick="openPopup('usagePopup')">
+            Water Usage Monitoring
+          </button>
+          <button class="action_button" onclick="openPopup('billingPopup')">
+            Billing Info
+          </button>
+          <button class="action_button" onclick="openPopup('complaintPopup')">
+            File Complaint
+          </button>
         </div>
       </div>
     </div>
@@ -41,14 +46,21 @@
       <div class="popup-content">
         <div class="popup-header">
           <h2>Water Usage Monitoring</h2>
-          <button class="close-btn" onclick="closePopup('usagePopup')">&times;</button>
+          <button class="close-btn" onclick="closePopup('usagePopup')">
+            &times;
+          </button>
         </div>
         <p>View your current and historical water usage data</p>
         <div class="form-group">
           <label for="usageDate">Select Date Range:</label>
-          <input type="date" id="usageDate">
+          <input type="date" id="usageDate" />
         </div>
-        <button class="action_button" onclick="alert('Usage data will be displayed here')">View Usage</button>
+        <button
+          class="action_button"
+          onclick="alert('Usage data will be displayed here')"
+        >
+          View Usage
+        </button>
       </div>
     </div>
 
@@ -56,7 +68,9 @@
       <div class="popup-content">
         <div class="popup-header">
           <h2>Billing Information</h2>
-          <button class="close-btn" onclick="closePopup('billingPopup')">&times;</button>
+          <button class="close-btn" onclick="closePopup('billingPopup')">
+            &times;
+          </button>
         </div>
         <p>Your current billing information and payment history.</p>
         <div class="form-group">
@@ -67,7 +81,12 @@
           <label>Due Date:</label>
           <p></p>
         </div>
-        <button class="action_button" onclick="alert('Payment processing.....')">Make Payment</button>
+        <button
+          class="action_button"
+          onclick="alert('Payment processing.....')"
+        >
+          Make Payment
+        </button>
       </div>
     </div>
 
@@ -75,7 +94,9 @@
       <div class="popup-content">
         <div class="popup-header">
           <h2>File a Complaint</h2>
-          <button class="close-btn" onclick="closePopup('complaintPopup')">&times;</button>
+          <button class="close-btn" onclick="closePopup('complaintPopup')">
+            &times;
+          </button>
         </div>
         <div class="form-group">
           <label for="complaintType">Complaint Type:</label>
@@ -88,26 +109,35 @@
         </div>
         <div class="form-group">
           <label for="complaintDetails">Details:</label>
-          <textarea id="complaintDetails" rows="4" style="width: 100%; padding: 10px;"></textarea>
+          <textarea
+            id="complaintDetails"
+            rows="4"
+            style="width: 100%; padding: 10px"
+          ></textarea>
         </div>
-        <button class="action_button" onclick="alert('Complaint submitted successfully!')">Submit Complaint</button>
+        <button
+          class="action_button"
+          onclick="alert('Complaint submitted successfully!')"
+        >
+          Submit Complaint
+        </button>
       </div>
     </div>
 
     <script>
       function openPopup(popupId) {
-        document.getElementById(popupId).style.display = 'flex';
+        document.getElementById(popupId).style.display = "flex";
       }
 
       function closePopup(popupId) {
-        document.getElementById(popupId).style.display = 'none';
+        document.getElementById(popupId).style.display = "none";
       }
 
-      window.onclick = function(event) {
-        if (event.target.className === 'popup') {
-          event.target.style.display = 'none';
+      window.onclick = function (event) {
+        if (event.target.className === "popup") {
+          event.target.style.display = "none";
         }
-      }
+      };
     </script>
   </body>
 </html>
