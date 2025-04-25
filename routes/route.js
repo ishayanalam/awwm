@@ -11,5 +11,5 @@ router.get("/users/area/:area_id", controller.getUsersByArea);
 router.get("/complaints/active", controller.getActiveComplaints);
 router.put("/complaints/resolve/:id", controller.resolveComplaint);
 router.get("/bills/unpaid/sorted", controller.getUnpaidBillsSorted);
-
+router.get("/usage/areas-above-average", controller.getAreasAboveAvgUsage);
 module.exports = router;

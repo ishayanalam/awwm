@@ -80,6 +80,32 @@ const getUnpaidBillsSorted = (req, res, next) => {
   });
 };
 
+const getAreasAboveAvgUsage = (req, res, next) => {
+  const query = `
+    SELECT Area_ID, AVG(Usage_Volume) AS Average_Usage_Volume
+    FROM Monitoring
+    GROUP BY Area_ID
+    HAVING AVG(Usage_Volume) > (
+      SELECT AVG(Usage_Volume) FROM Monitoring
+    )
+      ORDER BY Average_Usage_Volume DESC
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) return next(err);
+
+    // If no areas found
+    if (results.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No areas found with above average usage volume." });
+    }
+
+    // Send the results in the response
+    res.json(results);
+  });
+};
+
 console.log("all the controllers loaded");
 module.exports = {
   getUser,
@@ -87,4 +113,5 @@ module.exports = {
   getActiveComplaints,
   resolveComplaint,
   getUnpaidBillsSorted,
+  getAreasAboveAvgUsage,
 };
