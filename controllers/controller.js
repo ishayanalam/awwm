@@ -106,7 +106,53 @@ const resolveComplaint = (req, res, next) => {
 };
 
 //Distribution
+const addDistribution = (req, res, next) => {
+  const {
+    Area_ID,
+    Water_Source,
+    Distribution_Date,
+    Water_Volume,
+    Backup_Supply_Status,
+    Leak_Detection_Sensor_Status,
+  } = req.body;
 
+  // Validate input
+  if (
+    !Area_ID ||
+    !Water_Source ||
+    !Distribution_Date ||
+    !Water_Volume ||
+    !Backup_Supply_Status ||
+    !Leak_Detection_Sensor_Status
+  ) {
+    return res.status(400).json({ message: "All fields are required!" });
+  }
+
+  const query = `
+    INSERT INTO Distribution (Area_ID, Water_Source, Distribution_Date, Water_Volume, Backup_Supply_Status, Leak_Detection_Sensor_Status)
+    VALUES (?, ?, ?, ?, ?, ?);
+  `;
+
+  db.query(
+    query,
+    [
+      Area_ID,
+      Water_Source,
+      Distribution_Date,
+      Water_Volume,
+      Backup_Supply_Status,
+      Leak_Detection_Sensor_Status,
+    ],
+    (err, result) => {
+      if (err) return next(err);
+
+      res.status(201).json({
+        message: "Distribution added successfully!",
+        Distribution_ID: result.insertId,
+      });
+    }
+  );
+};
 //add distribution
 // view distribution by via area name
 const getAllDistributionData = (req, res, next) => {
@@ -229,4 +275,5 @@ module.exports = {
   getAllMonitoring,
   updateMonitoringData_waterQuality,
   getAllDistributionData,
+  addDistribution,
 };

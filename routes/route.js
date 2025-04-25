@@ -20,5 +20,6 @@ router.put(
   controller.updateMonitoringData_waterQuality
 );
 router.get("/distributions", controller.getAllDistributionData);
+router.post("/distribution-add", controller.addDistribution);
 
 module.exports = router;
