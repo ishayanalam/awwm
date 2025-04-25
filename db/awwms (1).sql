@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2025 at 03:18 PM
+-- Generation Time: Apr 25, 2025 at 10:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -82,20 +82,20 @@ CREATE TABLE `billing` (
   `Rate_Per_Unit` decimal(10,2) DEFAULT NULL,
   `Total_Amount` decimal(10,2) DEFAULT NULL,
   `Payment_Status` varchar(20) DEFAULT NULL,
-  `User_ID` int(11) DEFAULT NULL,
-  `Area_ID` int(11) DEFAULT NULL
+  `User_ID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `billing`
 --
 
-INSERT INTO `billing` (`Billing_ID`, `Billing_Date`, `Usage_Volume`, `Rate_Per_Unit`, `Total_Amount`, `Payment_Status`, `User_ID`, `Area_ID`) VALUES
-(1, '2025-04-20', 400.00, 5.00, 2000.00, 'Paid', 1, 1),
-(2, '2025-04-21', 350.00, 5.50, 1925.00, 'Unpaid', 2, 2),
-(3, '2025-04-22', 300.00, 6.00, 1800.00, 'Paid', 3, 3),
-(4, '2025-04-23', 450.00, 4.50, 2025.00, 'Unpaid', 4, 4),
-(5, '2025-04-24', 380.00, 5.20, 1976.00, 'Paid', 5, 5);
+INSERT INTO `billing` (`Billing_ID`, `Billing_Date`, `Usage_Volume`, `Rate_Per_Unit`, `Total_Amount`, `Payment_Status`, `User_ID`) VALUES
+(1, '2025-04-20', 400.00, 5.00, 2000.00, 'Paid', 1),
+(2, '2025-04-21', 350.00, 5.50, 1925.00, 'Unpaid', 2),
+(3, '2025-04-22', 300.00, 6.00, 1800.00, 'Paid', 3),
+(4, '2025-04-23', 450.00, 4.50, 2025.00, 'Unpaid', 4),
+(5, '2025-04-24', 380.00, 5.20, 1976.00, 'Paid', 5),
+(6, '2025-04-27', 1500.00, 5.00, 7500.00, 'Unpaid', 1);
 
 -- --------------------------------------------------------
 
@@ -149,7 +149,9 @@ INSERT INTO `distribution` (`Distribution_ID`, `Area_ID`, `Water_Source`, `Distr
 (2, 2, 'Tongi Canal', '2025-04-21', 400.00, 'Inactive', 'Working'),
 (3, 3, 'Buriganga River', '2025-04-22', 350.00, 'Active', 'Not Working'),
 (4, 4, 'Sitalakshya River', '2025-04-23', 500.00, 'Active', 'Working'),
-(5, 5, 'Jamuna River', '2025-04-24', 420.00, 'Inactive', 'Working');
+(5, 5, 'Jamuna River', '2025-04-24', 420.00, 'Inactive', 'Working'),
+(6, 1, 'River', '2025-04-28', 5000.00, 'Active', 'Working'),
+(7, 1, 'River', '2025-04-28', 5000.00, 'Active', 'Working');
 
 -- --------------------------------------------------------
 
@@ -161,7 +163,6 @@ CREATE TABLE `monitoring` (
   `Monitoring_ID` int(11) NOT NULL,
   `Area_ID` int(11) DEFAULT NULL,
   `Monitoring_Date` date DEFAULT NULL,
-  `Usage_Volume` decimal(10,2) DEFAULT NULL,
   `Water_Quality_Status` varchar(50) DEFAULT NULL,
   `Water_Pressure` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -170,12 +171,12 @@ CREATE TABLE `monitoring` (
 -- Dumping data for table `monitoring`
 --
 
-INSERT INTO `monitoring` (`Monitoring_ID`, `Area_ID`, `Monitoring_Date`, `Usage_Volume`, `Water_Quality_Status`, `Water_Pressure`) VALUES
-(1, 1, '2025-04-20', 400.00, 'Good', 'Normal'),
-(2, 2, '2025-04-21', 350.00, 'Satisfactory', 'Low'),
-(3, 3, '2025-04-22', 300.00, 'Good', 'High'),
-(4, 4, '2025-04-23', 450.00, 'Excellent', 'Normal'),
-(5, 5, '2025-04-24', 380.00, 'Good', 'Low');
+INSERT INTO `monitoring` (`Monitoring_ID`, `Area_ID`, `Monitoring_Date`, `Water_Quality_Status`, `Water_Pressure`) VALUES
+(1, 1, '2025-04-27', 'Average', 'Normal'),
+(2, 2, '2025-04-21', 'Average', 'Low'),
+(3, 3, '2025-04-22', 'Not Good', 'High'),
+(4, 4, '2025-04-23', 'Very Good', 'Normal'),
+(5, 5, '2025-04-24', 'Average', 'Low');
 
 -- --------------------------------------------------------
 
@@ -226,8 +227,7 @@ ALTER TABLE `authority`
 --
 ALTER TABLE `billing`
   ADD PRIMARY KEY (`Billing_ID`),
-  ADD KEY `User_ID` (`User_ID`),
-  ADD KEY `Area_ID` (`Area_ID`);
+  ADD KEY `User_ID` (`User_ID`);
 
 --
 -- Indexes for table `complaint`
@@ -278,7 +278,7 @@ ALTER TABLE `authority`
 -- AUTO_INCREMENT for table `billing`
 --
 ALTER TABLE `billing`
-  MODIFY `Billing_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Billing_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `complaint`
@@ -290,7 +290,7 @@ ALTER TABLE `complaint`
 -- AUTO_INCREMENT for table `distribution`
 --
 ALTER TABLE `distribution`
-  MODIFY `Distribution_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Distribution_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `monitoring`
@@ -312,8 +312,7 @@ ALTER TABLE `users`
 -- Constraints for table `billing`
 --
 ALTER TABLE `billing`
-  ADD CONSTRAINT `billing_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_ID`),
-  ADD CONSTRAINT `billing_ibfk_2` FOREIGN KEY (`Area_ID`) REFERENCES `area` (`Area_ID`);
+  ADD CONSTRAINT `billing_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_ID`);
 
 --
 -- Constraints for table `complaint`
