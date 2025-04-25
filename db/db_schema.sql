@@ -2,7 +2,6 @@ CREATE TABLE Area (
     Area_ID INT PRIMARY KEY,
     Location VARCHAR(100),
     WASA_Zone VARCHAR(50),
-    Population_Count INT,
     Water_Source VARCHAR(100),
     Water_Supply_Capacity DECIMAL(10,2)
 );
