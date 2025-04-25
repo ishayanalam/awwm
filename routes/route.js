@@ -21,5 +21,6 @@ router.put(
 );
 router.get("/distributions", controller.getAllDistributionData);
 router.post("/distribution-add", controller.addDistribution);
+router.post("/billing-new", controller.addBilling);
 
 module.exports = router;

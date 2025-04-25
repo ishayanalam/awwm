@@ -153,7 +153,7 @@ const addDistribution = (req, res, next) => {
     }
   );
 };
-//add distribution
+
 // view distribution by via area name
 const getAllDistributionData = (req, res, next) => {
   const query = `
@@ -192,6 +192,55 @@ const getUnpaidBillsSorted = (req, res, next) => {
   });
 };
 
+const addBilling = (req, res, next) => {
+  const {
+    Billing_Date,
+    Usage_Volume,
+    Rate_Per_Unit,
+    Total_Amount,
+    Payment_Status,
+    User_ID,
+  } = req.body;
+
+  // Validate input
+  if (
+    !Billing_Date ||
+    !Usage_Volume ||
+    !Rate_Per_Unit ||
+    !Total_Amount ||
+    !Payment_Status ||
+    !User_ID
+  ) {
+    return res.status(400).json({ message: "All fields are required!" });
+  }
+
+  const query = `
+    INSERT INTO Billing (Billing_Date, Usage_Volume, Rate_Per_Unit, Total_Amount, Payment_Status, User_ID)
+    VALUES (?, ?, ?, ?, ?, ?);
+  `;
+
+  db.query(
+    query,
+    [
+      Billing_Date,
+      Usage_Volume,
+      Rate_Per_Unit,
+      Total_Amount,
+      Payment_Status,
+      User_ID,
+    ],
+    (err, result) => {
+      if (err) return next(err);
+
+      res
+        .status(201)
+        .json({
+          message: "Billing record added successfully!",
+          Billing_ID: result.insertId,
+        });
+    }
+  );
+};
 //Monitoring
 const getAllMonitoring = (req, res, next) => {
   const query = `SELECT * FROM Monitoring
@@ -276,4 +325,5 @@ module.exports = {
   updateMonitoringData_waterQuality,
   getAllDistributionData,
   addDistribution,
+  addBilling,
 };
