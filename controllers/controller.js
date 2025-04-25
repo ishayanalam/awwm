@@ -232,12 +232,10 @@ const addBilling = (req, res, next) => {
     (err, result) => {
       if (err) return next(err);
 
-      res
-        .status(201)
-        .json({
-          message: "Billing record added successfully!",
-          Billing_ID: result.insertId,
-        });
+      res.status(201).json({
+        message: "Billing record added successfully!",
+        Billing_ID: result.insertId,
+      });
     }
   );
 };
@@ -311,6 +309,20 @@ const getAreasAboveAvgUsage = (req, res, next) => {
   });
 };
 
+const getAreaMonitoringReport = (req, res, next) => {
+  const query = `
+    SELECT a.Location, a.Water_Source, m.Water_Quality_Status, m.Water_Pressure 
+    FROM Area a 
+    JOIN Monitoring m ON a.Area_ID = m.Area_ID 
+    ORDER BY m.Monitoring_Date DESC
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) return next(err);
+    res.json(results);
+  });
+};
+
 console.log("all the controllers loaded");
 module.exports = {
   addUser,
@@ -326,4 +338,5 @@ module.exports = {
   getAllDistributionData,
   addDistribution,
   addBilling,
+  getAreaMonitoringReport,
 };
