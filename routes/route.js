@@ -15,7 +15,10 @@ router.get("/usage/areas-above-average", controller.getAreasAboveAvgUsage);
 router.post("/users", controller.addUser);
 router.get("/areas", controller.getAllAreas);
 router.get("/monitoring", controller.getAllMonitoring);
-router.put("/monitoring/update-quality", controller.updateMonitoringData_waterQuality);
-
+router.put(
+  "/monitoring/update-quality",
+  controller.updateMonitoringData_waterQuality
+);
+router.get("/distributions", controller.getAllDistributionData);
 
 module.exports = router;

@@ -109,6 +109,21 @@ const resolveComplaint = (req, res, next) => {
 
 //add distribution
 // view distribution by via area name
+const getAllDistributionData = (req, res, next) => {
+  const query = `
+    SELECT d.Area_ID,a.Location AS Area_Name, d.Water_Source, d.Distribution_Date, 
+           d.Water_Volume, d.Backup_Supply_Status, d.Leak_Detection_Sensor_Status
+    FROM Distribution d
+    JOIN Area a ON d.Area_ID = a.Area_ID
+    ORDER BY a.Location;
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) return next(err);
+
+    res.json(results);
+  });
+};
 //billing
 const getUnpaidBillsSorted = (req, res, next) => {
   const query = `
@@ -174,7 +189,6 @@ const updateMonitoringData_waterQuality = (req, res, next) => {
     }
   );
 };
-// sort by water quality status
 
 const getAreasAboveAvgUsage = (req, res, next) => {
   const query = `
@@ -214,4 +228,5 @@ module.exports = {
   getAllAreas,
   getAllMonitoring,
   updateMonitoringData_waterQuality,
+  getAllDistributionData,
 };
