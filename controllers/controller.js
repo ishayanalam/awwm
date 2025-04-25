@@ -30,10 +30,11 @@ const getUsersByArea = (req, res, next) => {
 
 const getActiveComplaints = (req, res, next) => {
   const query = `
-    SELECT *
-    FROM Complaint
-    WHERE status = 'Pending'
-  `;
+  SELECT *
+  FROM Complaint
+  WHERE status = 'Pending'
+  ORDER BY Submission_Date ASC
+`;
 
   db.query(query, (err, results) => {
     if (err) return next(err);
