@@ -8,5 +8,6 @@ router.get("/test", (req, res) => {
 });
 
 router.get("/users/area/:area_id", controller.getUsersByArea);
+router.get("/complaints/active", controller.getActiveComplaints);
 
 module.exports = router;
