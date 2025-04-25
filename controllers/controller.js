@@ -27,12 +27,22 @@ const getUsersByArea = (req, res, next) => {
     res.json(results);
   });
 };
+
+const getActiveComplaints = (req, res, next) => {
+  const query = `
+    SELECT *
+    FROM Complaint
+    WHERE status = 'Pending'
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) return next(err);
+    res.json(results);
+  });
+};
 console.log("all the controllers loaded");
 module.exports = {
   getUser,
   getUsersByArea,
+  getActiveComplaints,
 };
-
-
-
-
