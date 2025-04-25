@@ -9,7 +9,6 @@ const { JWT_SECRET } = process.env;
 const getUser = (req, res) => {
   res.send("Get user called");
 };
-
 const getUsersByArea = (req, res, next) => {
   const areaId = req.params.area_id;
 
@@ -27,7 +26,6 @@ const getUsersByArea = (req, res, next) => {
     res.json(results);
   });
 };
-
 const getActiveComplaints = (req, res, next) => {
   const query = `
   SELECT *
@@ -61,6 +59,27 @@ const resolveComplaint = (req, res, next) => {
     res.json({ message: "Complaint resolved successfully" });
   });
 };
+const getUnpaidBills = (req, res, next) => {
+  const userId = req.params.user_id; // Get user_id from the request parameters
+
+  const query = `
+    SELECT *
+    FROM Billing
+    WHERE user_id = ? AND Payment_Status = 'Unpaid'
+  `;
+
+  db.query(query, [userId], (err, results) => {
+    if (err) return next(err);
+
+    // If no unpaid bills are found
+    if (results.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No unpaid bills found for this user." });
+    }
+    res.json(results);
+  });
+};
 
 console.log("all the controllers loaded");
 module.exports = {
@@ -68,4 +87,5 @@ module.exports = {
   getUsersByArea,
   getActiveComplaints,
   resolveComplaint,
+  getUnpaidBills,
 };
