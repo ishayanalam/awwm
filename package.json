@@ -1,0 +1,33 @@
+{
+  "name": "awwm",
+  "version": "1.0.0",
+  "description": "Area Wise Water Management System",
+  "main": "app.js",
+  "scripts": {
+  "start": "node app.js",
+  "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ishayanalam/awwm.git"
+  },
+  "author": "Md Shayan Alam, Sabikun Nahar Zaria, Mahir Shafkat Labib",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ishayanalam/awwm/issues"
+  },
+  "homepage": "https://github.com/ishayanalam/awwm#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
