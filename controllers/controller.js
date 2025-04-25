@@ -6,6 +6,33 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 
 // controllers/userController.js
+
+const addUser = (req, res, next) => {
+  const { Name, Address, Area_ID, Meter_ID, Account_Status, Phone } = req.body;
+
+  // Validate if all required fields are provided
+  if (!Name || !Address || !Area_ID || !Meter_ID || !Account_Status || !Phone) {
+    return res.status(400).json({ message: "All fields are required!" });
+  }
+
+  const query = `
+    INSERT INTO Users (Name, Address, Area_ID, Meter_ID, Account_Status, Phone)
+    VALUES (?, ?, ?, ?, ?, ?);
+  `;
+
+  db.query(
+    query,
+    [Name, Address, Area_ID, Meter_ID, Account_Status, Phone],
+    (err, result) => {
+      if (err) return next(err);
+
+      // Successfully inserted new user
+      res
+        .status(201)
+        .json({ message: "User added successfully", userId: result.insertId });
+    }
+  );
+};
 const getUser = (req, res) => {
   res.send("Get user called");
 };
@@ -108,6 +135,7 @@ const getAreasAboveAvgUsage = (req, res, next) => {
 
 console.log("all the controllers loaded");
 module.exports = {
+  addUser,
   getUser,
   getUsersByArea,
   getActiveComplaints,
