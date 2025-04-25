@@ -5,7 +5,7 @@ const db = require("../db/database");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 
-// controllers/userController.js
+//user quries
 
 const addUser = (req, res, next) => {
   const { Name, Address, Area_ID, Meter_ID, Account_Status, Phone } = req.body;
@@ -36,6 +36,8 @@ const addUser = (req, res, next) => {
 const getUser = (req, res) => {
   res.send("Get user called");
 };
+
+//area
 const getUsersByArea = (req, res, next) => {
   const areaId = req.params.area_id;
 
@@ -53,6 +55,22 @@ const getUsersByArea = (req, res, next) => {
     res.json(results);
   });
 };
+
+const getAllAreas = (req, res, next) => {
+  const query = `
+    SELECT *
+    FROM Area
+    ORDER BY Location ASC;
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) return next(err);
+
+    res.json(results);
+  });
+};
+
+//complain
 const getActiveComplaints = (req, res, next) => {
   const query = `
   SELECT *
@@ -86,6 +104,11 @@ const resolveComplaint = (req, res, next) => {
     res.json({ message: "Complaint resolved successfully" });
   });
 };
+
+//Distribution
+//add distribution
+// view distribution by via area name
+//billing
 const getUnpaidBillsSorted = (req, res, next) => {
   const query = `
     SELECT *
@@ -106,6 +129,11 @@ const getUnpaidBillsSorted = (req, res, next) => {
     res.json(results);
   });
 };
+
+//Monitoring
+
+//update monitoring
+// sort by water quality status
 
 const getAreasAboveAvgUsage = (req, res, next) => {
   const query = `
@@ -142,4 +170,5 @@ module.exports = {
   resolveComplaint,
   getUnpaidBillsSorted,
   getAreasAboveAvgUsage,
+  getAllAreas,
 };
