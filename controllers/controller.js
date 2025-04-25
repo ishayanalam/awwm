@@ -106,6 +106,7 @@ const resolveComplaint = (req, res, next) => {
 };
 
 //Distribution
+
 //add distribution
 // view distribution by via area name
 //billing
@@ -131,8 +132,48 @@ const getUnpaidBillsSorted = (req, res, next) => {
 };
 
 //Monitoring
+const getAllMonitoring = (req, res, next) => {
+  const query = `SELECT * FROM Monitoring
+                  ORDER BY Water_Quality_Status`;
 
-//update monitoring
+  db.query(query, (err, results) => {
+    if (err) return next(err);
+
+    res.json(results);
+  });
+};
+// Update monitoring status and date
+const updateMonitoringData_waterQuality = (req, res, next) => {
+  const { Monitoring_ID, Water_Quality_Status, Monitoring_Date } = req.body;
+
+  // Validate input
+  if (!Monitoring_ID || !Water_Quality_Status || !Monitoring_Date) {
+    return res.status(400).json({ message: "All fields are required!" });
+  }
+
+  const query = `
+    UPDATE Monitoring
+    SET Water_Quality_Status = ?, 
+        Monitoring_Date = ?
+    WHERE Monitoring_ID = ?;
+  `;
+
+  db.query(
+    query,
+    [Water_Quality_Status, Monitoring_Date, Monitoring_ID],
+    (err, result) => {
+      if (err) return next(err);
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ message: "Monitoring ID not found!" });
+      }
+
+      res
+        .status(200)
+        .json({ message: "Monitoring data updated successfully!" });
+    }
+  );
+};
 // sort by water quality status
 
 const getAreasAboveAvgUsage = (req, res, next) => {
@@ -171,4 +212,6 @@ module.exports = {
   getUnpaidBillsSorted,
   getAreasAboveAvgUsage,
   getAllAreas,
+  getAllMonitoring,
+  updateMonitoringData_waterQuality,
 };
