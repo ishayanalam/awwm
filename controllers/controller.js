@@ -40,9 +40,31 @@ const getActiveComplaints = (req, res, next) => {
     res.json(results);
   });
 };
+const resolveComplaint = (req, res, next) => {
+  const complaintId = req.params.id;
+
+  const query = `
+    UPDATE Complaint
+    SET Status = 'Resolved',
+        Resolution_Date = CURRENT_DATE
+    WHERE Complaint_ID = ?
+  `;
+
+  db.query(query, [complaintId], (err, result) => {
+    if (err) return next(err);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Complaint not found" });
+    }
+
+    res.json({ message: "Complaint resolved successfully" });
+  });
+};
+
 console.log("all the controllers loaded");
 module.exports = {
   getUser,
   getUsersByArea,
   getActiveComplaints,
+  resolveComplaint,
 };
