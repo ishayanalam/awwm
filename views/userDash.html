@@ -1,99 +1,106 @@
 <!DOCTYPE html>
- <html lang="en">
-   <head>
-     <meta charset="UTF-8" />
-     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <title>AWWMS - Dashboard</title>
-     <link rel="stylesheet" href="userDash.css" />
-     
-   </head>
-   <body>
-     <div class="container">
-       <div id="left">
-         <h1 id="current_page_title">User Dashboard</h1>
-         <ul id="navbar">
-           <li class="navbar_links"><a href="userDash.html">Dashboard</a></li>
-         </ul>
-       </div>
- 
-       <div id="right">
-         <h1 id="PageTitle">Area Wise Water Management System</h1>
- 
-         <div class="dashboard_section">
-           <h2>User Profile</h2>
-           <div id="dashboard_stats">
-             <p><strong>Name:</strong></p>
-             <p><strong>Address:</strong></p>
-             <p><strong>Meter Id:</strong></p>
-           </div>
-         </div>
- 
-         <div class="dashboard_section">
-           <h2>Quick Actions</h2>
-           <button class="action_button" onclick="openPopup('usagePopup')">Water Usage Monitoring</button>
-           <button class="action_button" onclick="openPopup('billingPopup')">Billing Info</button>
-           <button class="action_button" onclick="openPopup('complaintPopup')">File Complaint</button>
-         </div>
-       </div>
-     </div>
- 
-     <div id="usagePopup" class="popup">
-       <div class="popup-content">
-         <div class="popup-header">
-           <h2>Water Usage Monitoring</h2>
-           <button class="close-btn" onclick="closePopup('usagePopup')">&times;</button>
-         </div>
-         <p>View your current and historical water usage data</p>
-         <div class="form-group">
-           <label for="usageDate">Select Date Range:</label>
-           <input type="date" id="usageDate">
-         </div>
-         <button class="action_button" onclick="alert('Usage data will be displayed here')">View Usage</button>
-       </div>
-     </div>
- 
-     <div id="billingPopup" class="popup">
-       <div class="popup-content">
-         <div class="popup-header">
-           <h2>Billing Information</h2>
-           <button class="close-btn" onclick="closePopup('billingPopup')">&times;</button>
-         </div>
-         <p>Your current billing information and payment history.</p>
-         <div class="form-group">
-           <label>Current Balance:</label>
-           <p></p>
-         </div>
-         <div class="form-group">
-           <label>Due Date:</label>
-           <p></p>
-         </div>
-         <button class="action_button" onclick="alert('Payment processing.....')">Make Payment</button>
-       </div>
-     </div>
- 
-     <div id="complaintPopup" class="popup">
-       <div class="popup-content">
-         <div class="popup-header">
-           <h2>File a Complaint</h2>
-           <button class="close-btn" onclick="closePopup('complaintPopup')">&times;</button>
-         </div>
-         <div class="form-group">
-           <label for="complaintType">Complaint Type:</label>
-           <select id="complaintType">
-             <option>Water Quality</option>
-             <option>Billing Issue</option>
-             <option>Service Interruption</option>
-             <option>Other</option>
-           </select>
-         </div>
-         <div class="form-group">
-           <label for="complaintDetails">Details:</label>
-           <textarea id="complaintDetails" rows="4" style="width: 100%; padding: 10px;"></textarea>
-         </div>
-         <button class="action_button" onclick="alert('Complaint submitted successfully!')">Submit Complaint</button>
-       </div>
-     </div>
- 
-     
-   </body>
- </html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AWWMS - Dashboard</title>
+  <link rel="stylesheet" href="userDash.css" />
+</head>
+<body>
+  <div class="container">
+    <div id="left">
+      <h1 id="current_page_title">User Dashboard</h1>
+      <ul id="navbar">
+        <li class="navbar_links"><a href="userDash.html">Dashboard</a></li>
+      </ul>
+    </div>
+
+    <div id="right">
+      <!-- Top bar with title and logout -->
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1 id="PageTitle">Area Wise Water Management System</h1>
+        <form action="selectlog.html" method="get">
+          <button type="submit">Logout</button>
+        </form>
+      </div>
+
+      <div class="dashboard_section">
+        <h2>User Profile</h2>
+        <div id="dashboard_stats">
+          <p><strong>Name:</strong></p>
+          <p><strong>Address:</strong></p>
+          <p><strong>Meter Id:</strong></p>
+        </div>
+      </div>
+
+      <div class="dashboard_section">
+        <h2>Quick Actions</h2>
+        <button class="action_button" onclick="openPopup('usagePopup')">Water Usage Monitoring</button>
+        <button class="action_button" onclick="openPopup('billingPopup')">Billing Info</button>
+        <button class="action_button" onclick="openPopup('complaintPopup')">File Complaint</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Usage Monitoring Popup -->
+  <div id="usagePopup" class="popup">
+    <div class="popup-content">
+      <div class="popup-header">
+        <h2>Water Usage Monitoring</h2>
+        <button class="close-btn" onclick="closePopup('usagePopup')">&times;</button>
+      </div>
+      <p>View your current and historical water usage data</p>
+      <div class="form-group">
+        <label for="usageDate">Select Date Range:</label>
+        <input type="date" id="usageDate">
+      </div>
+      <button class="action_button" onclick="alert('Usage data will be displayed here')">View Usage</button>
+    </div>
+  </div>
+
+  <!-- Billing Popup -->
+  <div id="billingPopup" class="popup">
+    <div class="popup-content">
+      <div class="popup-header">
+        <h2>Billing Information</h2>
+        <button class="close-btn" onclick="closePopup('billingPopup')">&times;</button>
+      </div>
+      <p>Your current billing information and payment history.</p>
+      <div class="form-group">
+        <label>Current Balance:</label>
+        <p></p>
+      </div>
+      <div class="form-group">
+        <label>Due Date:</label>
+        <p></p>
+      </div>
+      <button class="action_button" onclick="alert('Payment processing.....')">Make Payment</button>
+    </div>
+  </div>
+
+  <!-- Complaint -->
+  <div id="complaintPopup" class="popup">
+    <div class="popup-content">
+      <div class="popup-header">
+        <h2>File a Complaint</h2>
+        <button class="close-btn" onclick="closePopup('complaintPopup')">&times;</button>
+      </div>
+      <div class="form-group">
+        <label for="complaintType">Complaint Type:</label>
+        <select id="complaintType">
+          <option>Water Quality</option>
+          <option>Billing Issue</option>
+          <option>Service Interruption</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="complaintDetails">Details:</label>
+        <textarea id="complaintDetails" rows="4" style="width: 100%; padding: 10px;"></textarea>
+      </div>
+      <button class="action_button" onclick="alert('Complaint submitted successfully!')">Submit Complaint</button>
+    </div>
+  </div>
+
+</body>
+</html>
