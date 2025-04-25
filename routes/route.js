@@ -10,6 +10,6 @@ router.get("/test", (req, res) => {
 router.get("/users/area/:area_id", controller.getUsersByArea);
 router.get("/complaints/active", controller.getActiveComplaints);
 router.put("/complaints/resolve/:id", controller.resolveComplaint);
-router.get("/bills/unpaid/:user_id", controller.getUnpaidBills);
+router.get("/bills/unpaid/sorted", controller.getUnpaidBillsSorted);
 
 module.exports = router;

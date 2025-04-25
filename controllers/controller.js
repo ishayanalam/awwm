@@ -59,24 +59,23 @@ const resolveComplaint = (req, res, next) => {
     res.json({ message: "Complaint resolved successfully" });
   });
 };
-const getUnpaidBills = (req, res, next) => {
-  const userId = req.params.user_id; // Get user_id from the request parameters
-
+const getUnpaidBillsSorted = (req, res, next) => {
   const query = `
     SELECT *
     FROM Billing
-    WHERE user_id = ? AND Payment_Status = 'Unpaid'
+    WHERE Payment_Status = 'Unpaid'
+    ORDER BY Total_Amount DESC
   `;
 
-  db.query(query, [userId], (err, results) => {
+  db.query(query, (err, results) => {
     if (err) return next(err);
 
     // If no unpaid bills are found
     if (results.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No unpaid bills found for this user." });
+      return res.status(404).json({ message: "No unpaid bills found." });
     }
+
+    // Send the unpaid bills in the response
     res.json(results);
   });
 };
@@ -87,5 +86,5 @@ module.exports = {
   getUsersByArea,
   getActiveComplaints,
   resolveComplaint,
-  getUnpaidBills,
+  getUnpaidBillsSorted,
 };
