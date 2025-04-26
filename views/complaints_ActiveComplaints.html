@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AWWMS</title>
+    <link rel="stylesheet" href="../assets/style/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="left">
+        <h1 id="current_page_title">Complaints</h1>
+        <ul id="navbar">
+          <li class="navbar_links"><a href="index.html">Dashboard</a></li>
+          <li class="navbar_links"><a href="users.html">Users</a></li>
+          <li class="navbar_links"><a href="areas.html">Areas</a></li>
+          <li class="navbar_links">
+            <a href="distribution.html">Distribution</a>
+          </li>
+          <li class="navbar_links"><a href="monitoring.html">Monitoring</a></li>
+          <li class="navbar_links"><a href="billing.html">Billing</a></li>
+          <li class="navbar_links"><a href="complaints.html">Complaints</a></li>
+        </ul>
+      </div>
+
+      <div id="right">
+        <h1 id="PageTitle">Area Wise Water Management System</h1>
+        <div class="dashboard_section">
+          <h2>Active Complaints</h2>
+  
+          <table>
+            <thead>
+              <tr>
+                <th>Complaint ID</th>
+                <th>User ID</th>
+                <th>Area ID</th>
+                <th>Issue Type</th>
+                <th>Submission Date</th>
+                <th>Resolution Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="complaintsTableBody">
+              <!-- Data will be injected here by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script>
+      fetch('http://localhost:3000/api/complaints/active')
+        .then(response => response.json())
+        .then(data => {
+          console.log('Fetched complaints:', data); // Debugging log
+  
+          const tableBody = document.getElementById('complaintsTableBody');
+  
+          data.forEach(item => {
+            const row = document.createElement('tr');
+  
+            const complaintIdCell = document.createElement('td');
+            complaintIdCell.textContent = item.Complaint_ID;
+            row.appendChild(complaintIdCell);
+  
+            const userIdCell = document.createElement('td');
+            userIdCell.textContent = item.User_ID;
+            row.appendChild(userIdCell);
+  
+            const areaIdCell = document.createElement('td');
+            areaIdCell.textContent = item.Area_ID;
+            row.appendChild(areaIdCell);
+  
+            const issueTypeCell = document.createElement('td');
+            issueTypeCell.textContent = item.Issue_Type;
+            row.appendChild(issueTypeCell);
+  
+            const submissionDateCell = document.createElement('td');
+            const submissionDate = new Date(item.Submission_Date);
+            submissionDateCell.textContent = submissionDate.toLocaleDateString();
+            row.appendChild(submissionDateCell);
+
+            const resolutionDateCell = document.createElement('td');
+            const resolutionDate = item.Resolution_Date ? new Date(item.Resolution_Date).toLocaleDateString() : 'N/A';
+            resolutionDateCell.textContent = resolutionDate;
+            row.appendChild(resolutionDateCell);
+  
+            const statusCell = document.createElement('td');
+            statusCell.textContent = item.Status;
+            row.appendChild(statusCell);
+  
+            tableBody.appendChild(row);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching complaints:', error);
+        });
+    </script>
+  </body>
+  </html>

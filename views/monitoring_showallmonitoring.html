@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AWWMS - Monitoring</title>
+    <link rel="stylesheet" href="../assets/style/style.css">
+  </head>
+  <body>
+    <div class="container">
+        <div id="left">
+          <h1 id="current_page_title">Monitoring</h1>
+            <ul id="navbar">
+              <li class="navbar_links"><a href="index.html">Dashboard</a></li>
+              <li class="navbar_links"><a href="users.html">Users</a></li>
+              <li class="navbar_links"><a href="areas.html">Areas</a></li>
+              <li class="navbar_links"><a href="distribution.html">Distribution</a></li>
+              <li class="navbar_links"><a href="monitoring.html">Monitoring</a></li>
+              <li class="navbar_links"><a href="billing.html">Billing</a></li>
+              <li class="navbar_links"><a href="complaints.html">Complaints</a></li>
+            </ul>
+          </div>
+          <div id="right">
+          <h1 id="PageTitle">Area Wise Water Management System</h1>
+          <a href="monitoring_HightUsageAreas.html">High Usage Areas</a>
+         
+
+            <div class="dashboard_section">
+              <h2>Monitoring Details</h2>
+             
+      <table>
+        <thead>
+          <tr>
+            <th>Monitoring ID</th>
+            <th>Area ID</th>
+            <th>Monitoring Date</th>
+            <th>Usage Volume (Liters)</th>
+            <th>Water Quality Status</th>
+            <th>Water Pressure</th>
+          </tr>
+        </thead>
+        <tbody id="monitoringTableBody">
+          <!-- Data will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+      <script>
+        // Fetch monitoring data and fill the table
+        fetch('http://localhost:3000/api/monitoring')
+          .then(response => response.json())
+          .then(data => 
+         
+        {
+          console.log(data);
+        
+
+            const tableBody = document.getElementById('monitoringTableBody');
+    
+            data.forEach(item => {
+              console.log('Item:', item);
+              console.log('Item.usage_volume:', item.usage_volume);
+
+              const row = document.createElement('tr');
+    
+              const monitoringIdCell = document.createElement('td');
+              monitoringIdCell.textContent = item.Monitoring_ID;
+              row.appendChild(monitoringIdCell);
+    
+              const areaIdCell = document.createElement('td');
+              areaIdCell.textContent = item.Area_ID;
+              row.appendChild(areaIdCell);
+    
+              const dateCell = document.createElement('td');
+              const date = new Date(item.Monitoring_Date);
+              dateCell.textContent = date.toLocaleDateString(); // format nicely
+              row.appendChild(dateCell);
+    
+              const usageVolumeCell = document.createElement('td');
+              usageVolumeCell.textContent = item.Usage_Volume ? parseFloat(item.Usage_Volume).toFixed(2) + ' L' : 'N/A';
+              row.appendChild(usageVolumeCell);
+
+    
+              const waterQualityCell = document.createElement('td');
+              waterQualityCell.textContent = item.Water_Quality_Status;
+              row.appendChild(waterQualityCell);
+    
+              const waterPressureCell = document.createElement('td');
+              waterPressureCell.textContent = item.Water_Pressure;
+              row.appendChild(waterPressureCell);
+    
+              tableBody.appendChild(row);
+            });
+          })
+          .catch(error => {
+            console.error('Error fetching monitoring data:', error);
+          });
+      </script>
+    </body>
+  </html>
