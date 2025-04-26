@@ -4,103 +4,129 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AWWMS - Unpaid Billing</title>
-    <link rel="stylesheet" href="../assets/style/style.css"/>
-  </head> 
-<body>
-  <div class="container">
-    <div id="left">
-      <h1 id="current_page_title">Billing</h1>
-      <ul id="navbar">
-        <li class="navbar_links"><a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-        <li class="navbar_links"><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
-        <li class="navbar_links"><a href="areas.html"><i class="fas fa-map-marker-alt"></i> Areas</a></li>
-        <li class="navbar_links"><a href="distribution.html"><i class="fas fa-truck"></i> Distribution</a></li>
-        <li class="navbar_links"><a href="monitoring.html"><i class="fas fa-chart-line"></i> Monitoring</a></li>
-        <li class="navbar_links active"><a href="billing.html"><i class="fas fa-file-invoice-dollar"></i> Billing</a></li>
-        <li class="navbar_links"><a href="complaints.html"><i class="fas fa-exclamation-circle"></i> Complaints</a></li>
-      </ul>
-    </div>
+    <link rel="stylesheet" href="../assets/style/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="left">
+        <h1 id="current_page_title">Billing</h1>
+        <ul id="navbar">
+          <li class="navbar_links">
+            <a href="index.html"
+              ><i class="fas fa-tachometer-alt"></i> Dashboard</a
+            >
+          </li>
+          <li class="navbar_links">
+            <a href="users.html"><i class="fas fa-users"></i> Users</a>
+          </li>
+          <li class="navbar_links">
+            <a href="areas.html"><i class="fas fa-map-marker-alt"></i> Areas</a>
+          </li>
+          <li class="navbar_links">
+            <a href="distribution.html"
+              ><i class="fas fa-truck"></i> Distribution</a
+            >
+          </li>
+          <li class="navbar_links">
+            <a href="monitoring.html"
+              ><i class="fas fa-chart-line"></i> Monitoring</a
+            >
+          </li>
+          <li class="navbar_links active">
+            <a href="billing.html"
+              ><i class="fas fa-file-invoice-dollar"></i> Billing</a
+            >
+          </li>
+          <li class="navbar_links">
+            <a href="complaints.html"
+              ><i class="fas fa-exclamation-circle"></i> Complaints</a
+            >
+          </li>
+        </ul>
+      </div>
 
-    <div id="right">
-      <h1 id="PageTitle">Area Wise Water Management System</h1>
+      <div id="right">
+        <h1 id="PageTitle">Area Wise Water Management System</h1>
 
-      <div id="bills_dashboard">
-        <div class="dashboard_section">
-          <h2>Unpaid Bills Overview</h2>
+        <div id="bills_dashboard">
+          <div class="dashboard_section">
+            <h2>Unpaid Bills Overview</h2>
 
-          <table>
-            <thead>
-              <tr>
-                <th>Billing ID</th>
-                <th>Billing Date</th>
-                <th>Usage Volume (L)</th>
-                <th>Rate per Unit </th>
-                <th>Total Amount </th>
-                <th>Payment Status</th>
-                <th>User ID</th>
-                <th>Area ID</th>
-              </tr>
-            </thead>
-            <tbody id="billsTableBody">
-              <!-- Data will be injected here -->
-            </tbody>
-          </table>
-
+            <table>
+              <thead>
+                <tr>
+                  <th>Billing ID</th>
+                  <th>Billing Date</th>
+                  <th>Usage Volume (L)</th>
+                  <th>Rate per Unit</th>
+                  <th>Total Amount</th>
+                  <th>Payment Status</th>
+                  <th>User ID</th>
+                  <!-- <th>Area ID</th> -->
+                </tr>
+              </thead>
+              <tbody id="billsTableBody">
+                <!-- Data will be injected here -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    fetch('http://localhost:3000/api/bills/unpaid/sorted')
-      .then(response => response.json())
-      .then(data => {
-        console.log('Fetched bills:', data); // Debugging log
+    <script>
+      fetch("http://localhost:3000/api/bills/unpaid/sorted")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Fetched bills:", data); // Debugging log
 
-        const tableBody = document.getElementById('billsTableBody');
+          const tableBody = document.getElementById("billsTableBody");
 
-        data.forEach(item => {
-          const row = document.createElement('tr');
+          data.forEach((item) => {
+            const row = document.createElement("tr");
 
-          const billingIdCell = document.createElement('td');
-          billingIdCell.textContent = item.Billing_ID;
-          row.appendChild(billingIdCell);
+            const billingIdCell = document.createElement("td");
+            billingIdCell.textContent = item.Billing_ID;
+            row.appendChild(billingIdCell);
 
-          const billingDateCell = document.createElement('td');
-          const billingDate = new Date(item.Billing_Date);
-          billingDateCell.textContent = billingDate.toLocaleDateString();
-          row.appendChild(billingDateCell);
+            const billingDateCell = document.createElement("td");
+            const billingDate = new Date(item.Billing_Date);
+            billingDateCell.textContent = billingDate.toLocaleDateString();
+            row.appendChild(billingDateCell);
 
-          const usageVolumeCell = document.createElement('td');
-          usageVolumeCell.textContent = parseFloat(item.Usage_Volume).toFixed(2) + ' L';
-          row.appendChild(usageVolumeCell);
+            const usageVolumeCell = document.createElement("td");
+            usageVolumeCell.textContent =
+              parseFloat(item.Usage_Volume).toFixed(2) + " L";
+            row.appendChild(usageVolumeCell);
 
-          const ratePerUnitCell = document.createElement('td');
-          ratePerUnitCell.textContent = '৳' + parseFloat(item.Rate_Per_Unit).toFixed(2);
-          row.appendChild(ratePerUnitCell);
+            const ratePerUnitCell = document.createElement("td");
+            ratePerUnitCell.textContent =
+              "৳" + parseFloat(item.Rate_Per_Unit).toFixed(2);
+            row.appendChild(ratePerUnitCell);
 
-          const totalAmountCell = document.createElement('td');
-          totalAmountCell.textContent = '৳' + parseFloat(item.Total_Amount).toFixed(2);
-          row.appendChild(totalAmountCell);
+            const totalAmountCell = document.createElement("td");
+            totalAmountCell.textContent =
+              "৳" + parseFloat(item.Total_Amount).toFixed(2);
+            row.appendChild(totalAmountCell);
 
-          const paymentStatusCell = document.createElement('td');
-          paymentStatusCell.textContent = item.Payment_Status;
-          row.appendChild(paymentStatusCell);
+            const paymentStatusCell = document.createElement("td");
+            paymentStatusCell.textContent = item.Payment_Status;
+            row.appendChild(paymentStatusCell);
 
-          const userIdCell = document.createElement('td');
-          userIdCell.textContent = item.User_ID;
-          row.appendChild(userIdCell);
+            const userIdCell = document.createElement("td");
+            userIdCell.textContent = item.User_ID;
+            row.appendChild(userIdCell);
 
-          const areaIdCell = document.createElement('td');
-            areaIdCell.textContent = item.Area_ID;
-            row.appendChild(areaIdCell);
-            
-          tableBody.appendChild(row);
+            // const areaIdCell = document.createElement('td');
+            //   areaIdCell.textContent = item.Area_ID;
+            //   row.appendChild(areaIdCell);
+
+            tableBody.appendChild(row);
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching bills:", error);
         });
-      })
-      .catch(error => {
-        console.error('Error fetching bills:', error);
-      });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
