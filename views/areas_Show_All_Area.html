@@ -29,41 +29,6 @@
         <a href="areas_ShowByMonitoring.html">Show by Monitoring</a>
         <h1 id="PageTitle">Area Wise Water Management System</h1>
 
-        <div class="form-section">
-          <h2>Add New Area</h2>
-          <form id="areaForm">
-            <input
-              type="text"
-              id="areaName"
-              name="areaName"
-              placeholder="Enter Area Name"
-              required
-            />
-            <input
-              type="text"
-              id="region"
-              name="region"
-              placeholder="Enter Region"
-              required
-            />
-            <input
-              type="number"
-              id="population"
-              name="population"
-              placeholder="Enter Population"
-              required
-            />
-            <input
-              type="text"
-              id="waterSource"
-              name="waterSource"
-              placeholder="Water Source (e.g., river, tube well)"
-              required
-            />
-            <button type="submit">Add Area</button>
-          </form>
-        </div>
-
         <div class="table-section">
           <h2>Existing Areas</h2>
           <table>
@@ -105,5 +70,41 @@
         </div>
       </div>
     </div>
+    <script>
+      async function fetchAndDisplayAreas() {
+        try {
+          const response = await fetch('http://localhost:3000/api/areas');
+          const areas = await response.json();
+    
+          const tableBody = document.getElementById('areaTableBody');
+          tableBody.innerHTML = ''; // Clear any existing content
+    
+          areas.forEach(area => {
+            const row = document.createElement('tr');
+    
+            row.innerHTML = `
+              <td>${area.Area_ID}</td>
+              <td>${area.Location}</td>
+              <td>${area.WASA_Zone}</td>
+              <td>-</td> <!-- No Population data provided -->
+              <td>${area.Water_Source}</td>
+              <td>
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+              </td>
+            `;
+    
+            tableBody.appendChild(row);
+          });
+        } catch (error) {
+          console.error('Error fetching area data:', error);
+        }
+      }
+    
+      // Fetch and show areas when the page is fully loaded
+      window.addEventListener('DOMContentLoaded', fetchAndDisplayAreas);
+    </script>
+    
+
   </body>
 </html>
