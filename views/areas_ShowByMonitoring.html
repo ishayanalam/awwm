@@ -25,6 +25,7 @@
 
       <div id="right">
         <a href="areas_addNew.html">Add Area</a>
+        <a href="areas_Show_All_Area.html">Show All Areas</a>
         <a href="areas_ShowByMonitoring.html">Show by Monitoring</a>
         <h1 id="PageTitle">Area Wise Water Management System</h1>
 
@@ -62,47 +63,49 @@
             <button type="submit">Add Area</button>
           </form>
         </div>
-
         <div class="table-section">
-          <h2>Existing Areas</h2>
+          <h2>Area Monitoring Report</h2>
           <table>
             <thead>
               <tr>
-                <th>Area ID</th>
-                <th>Area Name</th>
-                <th>Region</th>
-                <th>Population</th>
+                <th>Location</th>
                 <th>Water Source</th>
-                <th>Actions</th>
+                <th>Water Quality</th>
+                <th>Water Pressure</th>
               </tr>
             </thead>
-            <tbody id="areaTableBody">
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                  <button>Edit</button>
-                  <button>Delete</button>
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                  <button>Edit</button>
-                  <button>Delete</button>
-                </td>
-              </tr>
+            <tbody id="monitoringTableBody">
+              <!-- Data rows will be inserted here -->
             </tbody>
           </table>
         </div>
-      </div>
-    </div>
+      
+    <script>
+      async function fetchMonitoringReport() {
+        try {
+          const response = await fetch('http://localhost:3000/api/monitoring/area-report');
+          const report = await response.json();
+    
+          const tableBody = document.getElementById('monitoringTableBody');
+          tableBody.innerHTML = ''; // Clear previous content
+    
+          report.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${item.Location}</td>
+              <td>${item.Water_Source}</td>
+              <td>${item.Water_Quality_Status}</td>
+              <td>${item.Water_Pressure}</td>
+            `;
+            tableBody.appendChild(row);
+          });
+        } catch (error) {
+          console.error('Error loading monitoring report:', error);
+        }
+      }
+    
+      window.addEventListener('DOMContentLoaded', fetchMonitoringReport);
+    </script>
+    
   </body>
 </html>
