@@ -35,7 +35,7 @@
                 <th>Area ID</th>
                 <th>Issue Type</th>
                 <th>Submission Date</th>
-                <th>Resolution Date</th>
+              
                 <th>Status</th>
               </tr>
             </thead>
@@ -62,7 +62,7 @@
           <td>${item.Area_ID}</td>
           <td>${item.Issue_Type}</td>
           <td>${new Date(item.Submission_Date).toLocaleDateString()}</td>
-          <td>${item.Resolution_Date ? new Date(item.Resolution_Date).toLocaleDateString() : 'N/A'}</td>
+         
           <td>${item.Status}</td>
         `;
   
