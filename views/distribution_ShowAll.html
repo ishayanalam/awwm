@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AWWMS</title>
+    <link rel="stylesheet" href="../assets/style/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="left">
+        <h1 id="current_page_title">Distribution</h1>
+        <ul id="navbar">
+          <li class="navbar_links"><a href="index.html">Dashboard</a></li>
+          <li class="navbar_links"><a href="users.html">Users</a></li>
+          <li class="navbar_links"><a href="areas.html">Areas</a></li>
+          <li class="navbar_links">
+            <a href="distribution.html">Distribution</a>
+          </li>
+          <li class="navbar_links"><a href="monitoring.html">Monitoring</a></li>
+          <li class="navbar_links"><a href="billing.html">Billing</a></li>
+          <li class="navbar_links"><a href="complaints.html">Complaints</a></li>
+        </ul>
+      </div>
+      <div id="right">
+        <h1 id="PageTitle">Area Wise Water Management System</h1>
+        <div id="distribution_dashboard">
+          <div class="dashboard_section">
+            <h2>Water Distribution Overview</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Area ID</th>
+                  <th>Area Name</th>
+                  <th>Water Source</th>
+                  <th>Distribution Date</th>
+                  <th>Water Volume (L)</th>
+                  <th>Backup Supply Status</th>
+                  <th>Leak Detection Sensor Status</th>
+                </tr>
+              </thead>
+              <tbody id="distributionTableBody">
+                <!-- Data will be inserted here -->
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+          <script>
+            fetch('http://localhost:3000/api/distributions')
+              .then(response => response.json())
+              .then(data => {
+                console.log('Fetched distributions:', data); // Debugging
+      
+                const tableBody = document.getElementById('distributionTableBody');
+      
+                data.forEach(item => {
+                  const row = document.createElement('tr');
+      
+                  const areaIdCell = document.createElement('td');
+                  areaIdCell.textContent = item.Area_ID;
+                  row.appendChild(areaIdCell);
+      
+                  const areaNameCell = document.createElement('td');
+                  areaNameCell.textContent = item.Area_Name;
+                  row.appendChild(areaNameCell);
+      
+                  const waterSourceCell = document.createElement('td');
+                  waterSourceCell.textContent = item.Water_Source;
+                  row.appendChild(waterSourceCell);
+      
+                  const distributionDateCell = document.createElement('td');
+                  const distributionDate = new Date(item.Distribution_Date);
+                  distributionDateCell.textContent = distributionDate.toLocaleDateString();
+                  row.appendChild(distributionDateCell);
+      
+                  const waterVolumeCell = document.createElement('td');
+                  waterVolumeCell.textContent = parseFloat(item.Water_Volume).toFixed(2) + ' L';
+                  row.appendChild(waterVolumeCell);
+      
+                  const backupSupplyCell = document.createElement('td');
+                  backupSupplyCell.textContent = item.Backup_Supply_Status;
+                  row.appendChild(backupSupplyCell);
+      
+                  const leakDetectionCell = document.createElement('td');
+                  leakDetectionCell.textContent = item.Leak_Detection_Sensor_Status;
+                  row.appendChild(leakDetectionCell);
+      
+                  tableBody.appendChild(row);
+                });
+              })
+              .catch(error => {
+                console.error('Error fetching distribution data:', error);
+              });
+          </script>      
+  </body>
+</html>
