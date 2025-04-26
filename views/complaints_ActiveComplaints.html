@@ -26,8 +26,7 @@
       <div id="right">
         <h1 id="PageTitle">Area Wise Water Management System</h1>
         <div class="dashboard_section">
-          <h2>Active Complaints</h2>
-  
+          <h2>Active Complaints Overview</h2>
           <table>
             <thead>
               <tr>
@@ -41,59 +40,37 @@
               </tr>
             </thead>
             <tbody id="complaintsTableBody">
-              <!-- Data will be injected here by JavaScript -->
+              <!-- Data will be injected here -->
             </tbody>
           </table>
         </div>
-      </div>
-    </div>
-    <script>
-      fetch('http://localhost:3000/api/complaints/active')
-        .then(response => response.json())
-        .then(data => {
-          console.log('Fetched complaints:', data); // Debugging log
+      
+<script>
+  fetch('http://localhost:3000/api/complaints/active')
+    .then(response => response.json())
+    .then(data => {
+      console.log('Fetched complaints:', data); // Debugging
   
-          const tableBody = document.getElementById('complaintsTableBody');
+      const tableBody = document.getElementById('complaintsTableBody');
   
-          data.forEach(item => {
-            const row = document.createElement('tr');
+      data.forEach(item => {
+        const row = document.createElement('tr');
   
-            const complaintIdCell = document.createElement('td');
-            complaintIdCell.textContent = item.Complaint_ID;
-            row.appendChild(complaintIdCell);
+        row.innerHTML = `
+          <td>${item.Complaint_ID}</td>
+          <td>${item.User_ID}</td>
+          <td>${item.Area_ID}</td>
+          <td>${item.Issue_Type}</td>
+          <td>${new Date(item.Submission_Date).toLocaleDateString()}</td>
+          <td>${item.Resolution_Date ? new Date(item.Resolution_Date).toLocaleDateString() : 'N/A'}</td>
+          <td>${item.Status}</td>
+        `;
   
-            const userIdCell = document.createElement('td');
-            userIdCell.textContent = item.User_ID;
-            row.appendChild(userIdCell);
+        tableBody.appendChild(row);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching complaints:', error);
+    });
+  </script>
   
-            const areaIdCell = document.createElement('td');
-            areaIdCell.textContent = item.Area_ID;
-            row.appendChild(areaIdCell);
-  
-            const issueTypeCell = document.createElement('td');
-            issueTypeCell.textContent = item.Issue_Type;
-            row.appendChild(issueTypeCell);
-  
-            const submissionDateCell = document.createElement('td');
-            const submissionDate = new Date(item.Submission_Date);
-            submissionDateCell.textContent = submissionDate.toLocaleDateString();
-            row.appendChild(submissionDateCell);
-
-            const resolutionDateCell = document.createElement('td');
-            const resolutionDate = item.Resolution_Date ? new Date(item.Resolution_Date).toLocaleDateString() : 'N/A';
-            resolutionDateCell.textContent = resolutionDate;
-            row.appendChild(resolutionDateCell);
-  
-            const statusCell = document.createElement('td');
-            statusCell.textContent = item.Status;
-            row.appendChild(statusCell);
-  
-            tableBody.appendChild(row);
-          });
-        })
-        .catch(error => {
-          console.error('Error fetching complaints:', error);
-        });
-    </script>
-  </body>
-  </html>
