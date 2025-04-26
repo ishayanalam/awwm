@@ -27,46 +27,46 @@
       <div class="table-section">
         <h2>High Usage Areas</h2>
 
-        <table>
+        <table border="1" style="width:100%; border-collapse:collapse;">
           <thead>
             <tr>
               <th>Area ID</th>
-              <th>Average Usage Volume (Liters)</th>
+              <th>Average Usage Volume</th>
             </tr>
           </thead>
-          <tbody id="highUsageTableBody">
-           
+          <tbody id="areasAboveAvgTableBody">
+            <!-- Data will come here -->
           </tbody>
         </table>
+
       </div>
-    </div>
-  </div>
+    </div> <!-- closing #right -->
+  </div> <!-- closing .container -->
 
   <script>
-    // Fetch data from your API
     fetch('http://localhost:3000/api/usage/areas-above-average')
       .then(response => response.json())
       .then(data => {
-        const tableBody = document.getElementById('highUsageTableBody');
-  
+        const tableBody = document.getElementById('areasAboveAvgTableBody');
+
         data.forEach(item => {
           const row = document.createElement('tr');
-  
-          const areaCell = document.createElement('td');
-          areaCell.textContent = item.Area_ID;
-          row.appendChild(areaCell);
-  
-          const usageCell = document.createElement('td');
-          usageCell.textContent = item.Average_Usage_Volume;
-          row.appendChild(usageCell);
-  
+
+          const areaIdCell = document.createElement('td');
+          areaIdCell.textContent = item.Area_ID;
+          row.appendChild(areaIdCell);
+
+          const avgUsageCell = document.createElement('td');
+          avgUsageCell.textContent = parseFloat(item.Average_Usage_Volume).toFixed(2);
+          row.appendChild(avgUsageCell);
+
           tableBody.appendChild(row);
         });
       })
       .catch(error => {
-        console.error('Error fetching high usage areas:', error);
+        console.error('Error fetching areas above average usage:', error);
       });
   </script>
-  
+
 </body>
 </html>
