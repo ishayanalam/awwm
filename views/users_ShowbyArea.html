@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AWWMS</title>
+    <link rel="stylesheet" href="../assets/style/users_ShowByArea.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="left">
+        <h1 id="current_page_title">Users</h1>
+        <ul id="navbar">
+          <li class="navbar_links"><a href="index.html">Dashboard</a></li>
+          <li class="navbar_links"><a href="users.html">Users</a></li>
+          <li class="navbar_links"><a href="areas.html">Areas</a></li>
+          <li class="navbar_links">
+            <a href="distribution.html">Distribution</a>
+          </li>
+          <li class="navbar_links"><a href="monitoring.html">Monitoring</a></li>
+          <li class="navbar_links"><a href="billing.html">Billing</a></li>
+          <li class="navbar_links"><a href="complaints.html">Complaints</a></li>
+        </ul>
+      </div>
+      <div id="right">
+        <a href="users_addNew.html">Add New User</a>
+        <a href="users_ShowbyArea.html">Show by Area</a>
+        <h1 id="PageTitle">Area Wise Water Management System</h1>
+
+        <div class="form-container">
+          <label for="area-id">Area ID :</label>
+          <input
+            type="text"
+            id="area-id"
+            name="area-id"
+            placeholder="Enter Area ID"
+          />
+          <div id="message-box"></div>
+
+          <button type="submit">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.querySelector("button").addEventListener("click", async () => {
+        const areaId = document.getElementById("area-id").value.trim();
+        const messageBox = document.getElementById("message-box");
+        messageBox.innerHTML = ""; // Clear previous messages
+
+        if (!areaId) {
+          messageBox.innerHTML = `<div class="error">Please enter an Area ID.</div>`;
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/users/area/${areaId}`
+          );
+          if (!response.ok) {
+            throw new Error("User data not found");
+          }
+
+          const data = await response.json();
+
+          const existingTable = document.getElementById("user-table");
+          if (existingTable) existingTable.remove(); // Remove old table if any
+
+          const table = document.createElement("table");
+          table.id = "user-table";
+
+          const thead = document.createElement("thead");
+          thead.innerHTML = `
+            <tr>
+              <th>User ID</th>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Meter ID</th>
+              <th>Account Status</th>
+            </tr>
+          `;
+
+          const tbody = document.createElement("tbody");
+
+          const users = Array.isArray(data) ? data : [data];
+          users.forEach((user) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td>${user.User_ID}</td>
+              <td>${user.Name}</td>
+              <td>${user.Address}</td>
+              <td>${user.Meter_ID}</td>
+              <td>${user.Account_Status}</td>
+            `;
+            tbody.appendChild(row);
+          });
+
+          table.appendChild(thead);
+          table.appendChild(tbody);
+          document.getElementById("right").appendChild(table);
+        } catch (error) {
+          messageBox.innerHTML = `<div class="error">Failed to fetch user data. ${error.message}</div>`;
+          console.error("Error:", error);
+        }
+      });
+    </script>
+  </body>
+</html>
