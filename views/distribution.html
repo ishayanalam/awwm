@@ -23,134 +23,16 @@
         </ul>
       </div>
       <div id="right">
-        <h1 id="PageTitle">Area Wise Water Management System</h1>
-        <a href = "distribution_ShowAll.html">Show All</a>
-        <div id="distribution_dashboard">
-          <div class="dashboard_section">
-            <h2>Water Distribution Overview</h2>
-            <div id="distribution_stats">
-              <p>
-                <strong>Total Areas Covered:</strong>
-                <span id="totalAreas"></span>
-              </p>
-              <p>
-                <strong>Total Water Distributed:</strong>
-                <span id="totalWater"></span>
-              </p>
-              <p>
-                <strong>Average Distribution per Area:</strong>
-                <span id="avgWater"></span>
-              </p>
-            </div>
-          </div>
-
-          <div class="dashboard_section">
-            <h2>Distribution Details</h2>
-            <table id="distribution_table">
-              <thead>
-                <tr>
-                  <th>Area</th>
-                  <th>Water Distributed (Liters)</th>
-                  <th>Status</th>
-                  <th>Last Update</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="dashboard_section">
-            <h2>Actions</h2>
-            <button class="action_button" id="distributeBtn">
-              Distribute Water
-            </button>
-            <button class="action_button" id="reportBtn">View Reports</button>
-            <button class="action_button" id="manageBtn">Manage Areas</button>
-          </div>
-        </div>
+        <nav>
+          <h1 id="PageTitle">Area Wise Water Management System</h1>
+          <a href="distribution_ShowAll.html">Show All</a>
+          <a href="distribution.html">Add new Distribution</a>
+        </nav>
       </div>
     </div>
 
-    <div id="distributeModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Distribute Water</h2>
-        <form id="distributeForm">
-          <div class="form-group">
-            <label for="areaSelect">Select Area:</label>
-            <select id="areaSelect" required>
-              <option value="">-- Select Area --</option>
-              <option value="Downtown">Downtown</option>
-              <option value="Suburbia">Suburbia</option>
-              <option value="Industrial Zone">Industrial Zone</option>
-              <option value="Residential North">Residential North</option>
-              <option value="Residential South">Residential South</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="waterAmount">Water Amount (Liters):</label>
-            <input
-              type="number"
-              id="waterAmount"
-              required
-              min="100"
-              step="100"
-            />
-          </div>
-          <div class="form-group">
-            <label for="distributionDate">Distribution Date:</label>
-            <input type="datetime-local" id="distributionDate" required />
-          </div>
-          <button type="submit" class="submit-btn">Submit Distribution</button>
-        </form>
-      </div>
-    </div>
-
-    <div id="reportModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Distribution Reports</h2>
-        <div id="reportContent">
-          <p><strong>Last Week Distribution:</strong></p>
-          <p><strong>Areas with Highest Demand:</strong></p>
-          <p><strong>Areas with Lowest Demand:</strong></p>
-          <p><strong>Total Distribution This Month:</strong></p>
-        </div>
-        <button class="action_button" style="margin-top: 20px">
-          Download Full Report
-        </button>
-      </div>
+    
+      
     </div>
   </body>
 </html>
