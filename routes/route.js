@@ -23,5 +23,6 @@ router.get("/monitoring/area-report", controller.getAreaMonitoringReport);
 router.post("/area/add-new", controller.addArea);
 router.post("/monitoring/add-new", controller.addMonitoring);
 router.post("/billing/updateStatus", controller.updateBillingStatus);
+router.get("/complaints/:complaint_id", controller.getComplaintDataById);
 
 module.exports = router;

@@ -98,6 +98,36 @@ const getAllAreas = (req, res, next) => {
 };
 
 //complain
+
+const getComplaintDataById = (req, res, next) => {
+  const complaintId = req.params.complaint_id; // Extracting complaint_id from the URL parameter
+
+  const query = `
+    SELECT 
+      u.User_ID,
+      u.Name AS UserName,
+      u.Phone,
+      c.Issue_Type,
+      c.Submission_Date,
+      c.Area_ID,
+      a.Location AS Area_Name
+    FROM Complaint c
+    JOIN Users u ON c.User_ID = u.User_ID
+    JOIN Area a ON c.Area_ID = a.Area_ID
+    WHERE c.Complaint_ID = ?;
+  `;
+
+  db.query(query, [complaintId], (err, results) => {
+    if (err) return next(err); // If an error occurs, pass it to the next middleware
+
+    if (results.length === 0) {
+      return res.status(404).json({ message: "Complaint not found" });
+    }
+
+    res.json(results[0]); // Return the first result as there's only one complaint with the given ID
+  });
+};
+
 const getActiveComplaints = (req, res, next) => {
   const query = `
   SELECT *
@@ -113,15 +143,20 @@ const getActiveComplaints = (req, res, next) => {
 };
 const resolveComplaint = (req, res, next) => {
   const complaintId = req.params.id;
+  const { complaintStatus } = req.body; // Get the new status from the request body
+
+  if (!complaintStatus) {
+    return res.status(400).json({ message: "Complaint status is required" });
+  }
 
   const query = `
     UPDATE Complaint
-    SET Status = 'Resolved',
+    SET Status = ?, 
         Resolution_Date = CURRENT_DATE
     WHERE Complaint_ID = ?
   `;
 
-  db.query(query, [complaintId], (err, result) => {
+  db.query(query, [complaintStatus, complaintId], (err, result) => {
     if (err) return next(err);
 
     if (result.affectedRows === 0) {
@@ -203,7 +238,9 @@ const updateBillingStatus = (req, res, next) => {
 
   // Validate input data
   if (!Billing_ID || !Payment_Status) {
-    return res.status(400).json({ message: "Billing ID and Payment Status are required!" });
+    return res
+      .status(400)
+      .json({ message: "Billing ID and Payment Status are required!" });
   }
 
   // Query to update payment status
@@ -223,7 +260,6 @@ const updateBillingStatus = (req, res, next) => {
     }
   });
 };
-
 
 const getUnpaidBillsSorted = (req, res, next) => {
   const query = `
@@ -442,4 +478,5 @@ module.exports = {
   addArea,
   addMonitoring,
   updateBillingStatus,
+  getComplaintDataById,
 };
