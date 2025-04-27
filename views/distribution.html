@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -34,5 +34,156 @@
     
       
     </div>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Distribution</title>
+    <link rel="stylesheet" href="../assets/style/users_addNew.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="left">
+        <h1 id="current_page_title">Add New Distribution</h1>
+        <ul id="navbar">
+          <li class="navbar_links"><a href="index.html">Dashboard</a></li>
+          <li class="navbar_links"><a href="users.html">Users</a></li>
+          <li class="navbar_links"><a href="areas.html">Areas</a></li>
+          <li class="navbar_links">
+            <a href="distribution.html">Distribution</a>
+          </li>
+          <li class="navbar_links"><a href="monitoring.html">Monitoring</a></li>
+          <li class="navbar_links"><a href="billing.html">Billing</a></li>
+          <li class="navbar_links"><a href="complaints.html">Complaints</a></li>
+        </ul>
+      </div>
+      <div id="right">
+        <h1 id="PageTitle">Area Wise Water Management System</h1>
+        <a href="distribution_ShowAll.html">Show All</a>
+        <a href="distribution.html">Add new Distribution</a>
+
+        <form id="addDistributionForm">
+          <h1>Add New Distribution</h1>
+
+          <div class="form-group">
+            <label for="area_id">Area ID:</label>
+            <input
+              type="number"
+              id="area_id"
+              required
+              placeholder="Enter area ID"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="water_source">Water Source:</label>
+            <input
+              type="text"
+              id="water_source"
+              required
+              placeholder="Enter water source"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="distribution_date">Distribution Date:</label>
+            <input type="date" id="distribution_date" required />
+          </div>
+
+          <div class="form-group">
+            <label for="water_volume">Water Volume:</label>
+            <input
+              type="number"
+              id="water_volume"
+              required
+              placeholder="Enter water volume"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="backup_supply_status">Backup Supply Status:</label>
+            <select id="backup_supply_status" required>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="leak_detection_sensor_status"
+              >Leak Detection Sensor Status:</label
+            >
+            <select id="leak_detection_sensor_status" required>
+              <option value="Working">Working</option>
+              <option value="Not Working">Not Working</option>
+            </select>
+          </div>
+
+          <button type="submit" class="submit-btn">Submit</button>
+        </form>
+
+        <p id="responseMessage"></p>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("addDistributionForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const area_id = document.getElementById("area_id").value;
+          const water_source = document.getElementById("water_source").value;
+          const distribution_date =
+            document.getElementById("distribution_date").value;
+          const water_volume = document.getElementById("water_volume").value;
+          const backup_supply_status = document.getElementById(
+            "backup_supply_status"
+          ).value;
+          const leak_detection_sensor_status = document.getElementById(
+            "leak_detection_sensor_status"
+          ).value;
+
+          try {
+            const response = await fetch(
+              `http://localhost:3000/api/distribution-add`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  Area_ID: area_id,
+                  Water_Source: water_source,
+                  Distribution_Date: distribution_date,
+                  Water_Volume: water_volume,
+                  Backup_Supply_Status: backup_supply_status,
+                  Leak_Detection_Sensor_Status: leak_detection_sensor_status,
+                }),
+              }
+            );
+
+            const result = await response.json();
+
+            if (response.ok) {
+              document.getElementById("responseMessage").innerHTML = `
+                ${result.message} <br>
+                New Distribution ID: <strong>${result.Distribution_ID}</strong>
+              `;
+              document.getElementById("addDistributionForm").reset();
+            } else {
+              document.getElementById("responseMessage").innerText =
+                "❌ Error: " + result.message;
+            }
+          } catch (error) {
+            console.error(error);
+            document.getElementById("responseMessage").innerText =
+              "❌ Something went wrong.";
+          }
+        });
+    </script>
   </body>
 </html>
