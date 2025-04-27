@@ -38,6 +38,33 @@ const getUser = (req, res) => {
 };
 
 //area
+const addArea = (req, res, next) => {
+  const { Location, WASA_Zone, Water_Source, Water_Supply_Capacity } = req.body;
+
+  // Validate if all required fields are provided
+  if (!Location || !WASA_Zone || !Water_Source || !Water_Supply_Capacity) {
+    return res.status(400).json({ message: "All fields are required!" });
+  }
+
+  const query = `
+    INSERT INTO Area (Location, WASA_Zone, Water_Source, Water_Supply_Capacity)
+    VALUES (?, ?, ?, ?);
+  `;
+
+  db.query(
+    query,
+    [Location, WASA_Zone, Water_Source, Water_Supply_Capacity],
+    (err, result) => {
+      if (err) return next(err);
+
+      // Successfully inserted new area
+      res
+        .status(201)
+        .json({ message: "Area added successfully", areaId: result.insertId });
+    }
+  );
+};
+
 const getUsersByArea = (req, res, next) => {
   const areaId = req.params.area_id;
 
@@ -339,4 +366,5 @@ module.exports = {
   addDistribution,
   addBilling,
   getAreaMonitoringReport,
+  addArea,
 };

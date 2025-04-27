@@ -20,6 +20,6 @@ router.get("/distributions", controller.getAllDistributionData);
 router.post("/distribution-add", controller.addDistribution);
 router.post("/billing-new", controller.addBilling);
 router.get("/monitoring/area-report", controller.getAreaMonitoringReport);
-
+router.post("/area/add-new", controller.addArea);
 
 module.exports = router;
