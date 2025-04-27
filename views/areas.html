@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -24,13 +24,151 @@
       </div>
 
       <div id="right">
+
+        <div>
+          <h1 id="PageTitle">Area Wise Water Management System</h1>
+          <nav>
+            <a href="areas_addNew.html">Add Area</a>
+            <a href="areas_Show_All_Area.html">Show All Areas</a>
+            <a href="areas_ShowByMonitoring.html">Show by Monitoring</a>
+          </nav>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Area</title>
+    <link rel="stylesheet" href="../assets/style/users_addNew.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="left">
+        <h1 id="current_page_title">Add New Area</h1>
+        <ul id="navbar">
+          <li class="navbar_links"><a href="index.html">Dashboard</a></li>
+          <li class="navbar_links"><a href="users.html">Users</a></li>
+          <li class="navbar_links"><a href="areas.html">Areas</a></li>
+          <li class="navbar_links">
+            <a href="distribution.html">Distribution</a>
+          </li>
+          <li class="navbar_links"><a href="monitoring.html">Monitoring</a></li>
+          <li class="navbar_links"><a href="billing.html">Billing</a></li>
+          <li class="navbar_links"><a href="complaints.html">Complaints</a></li>
+        </ul>
+      </div>
+
+      <div id="right">
         <nav>
           <h1 id="PageTitle">Area Wise Water Management System</h1>
-          <a href="areas_addNew.html">Add Area</a>
+          <a href="areas.html">Add Area</a>
           <a href="areas_Show_All_Area.html">Show All Areas</a>
           <a href="areas_ShowByMonitoring.html">Show by Monitoring</a>
         </nav>
+        <form id="addAreaForm">
+          <h1>Add New Area</h1>
+          <div class="form-group">
+            <label for="location">Location:</label>
+            <input
+              type="text"
+              id="location"
+              required
+              placeholder="Enter location"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="wasa_zone">WASA Zone:</label>
+            <input
+              type="text"
+              id="wasa_zone"
+              required
+              placeholder="Enter WASA Zone"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="water_source">Water Source:</label>
+            <input
+              type="text"
+              id="water_source"
+              required
+              placeholder="Enter water source"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="water_supply_capacity">Water Supply Capacity:</label>
+            <input
+              type="number"
+              id="water_supply_capacity"
+              required
+              placeholder="Enter water supply capacity"
+            />
+          </div>
+
+          <button type="submit" class="submit-btn">Submit</button>
+        </form>
+
+        <p id="responseMessage"></p>
       </div>
     </div>
+
+    <script>
+      document
+        .getElementById("addAreaForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const location = document.getElementById("location").value;
+          const wasa_zone = document.getElementById("wasa_zone").value;
+          const water_source = document.getElementById("water_source").value;
+          const water_supply_capacity = document.getElementById(
+            "water_supply_capacity"
+          ).value;
+
+          try {
+            const response = await fetch(
+              `http://localhost:3000/api/area/add-new`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  Location: location,
+                  WASA_Zone: wasa_zone,
+                  Water_Source: water_source,
+                  Water_Supply_Capacity: water_supply_capacity,
+                }),
+              }
+            );
+
+            const result = await response.json();
+
+            if (response.ok) {
+              document.getElementById("responseMessage").innerHTML = `
+                ${result.message} <br>
+                New Area ID: <strong>${result.areaId}</strong>
+              `;
+              document.getElementById("addAreaForm").reset();
+            } else {
+              document.getElementById("responseMessage").innerText =
+                "Error: " + result.message;
+            }
+          } catch (error) {
+            console.error(error);
+            document.getElementById("responseMessage").innerText =
+              "Something went wrong.";
+          }
+        });
+    </script>
   </body>
 </html>
