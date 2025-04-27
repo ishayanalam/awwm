@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AWWMS - Billing</title>
+    <link rel="stylesheet" href="../assets/style/users_addNew.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="left">
+        <h1 id="current_page_title">Billing</h1>
+        <ul id="navbar">
+          <li class="navbar_links">
+            <a href="index.html"
+              ><i class="fas fa-tachometer-alt"></i> Dashboard</a
+            >
+          </li>
+          <li class="navbar_links">
+            <a href="users.html"><i class="fas fa-users"></i> Users</a>
+          </li>
+          <li class="navbar_links">
+            <a href="areas.html"><i class="fas fa-map-marker-alt"></i> Areas</a>
+          </li>
+          <li class="navbar_links">
+            <a href="distribution.html"
+              ><i class="fas fa-truck"></i> Distribution</a
+            >
+          </li>
+          <li class="navbar_links">
+            <a href="monitoring.html"
+              ><i class="fas fa-chart-line"></i> Monitoring</a
+            >
+          </li>
+          <li class="navbar_links active">
+            <a href="billing.html"
+              ><i class="fas fa-file-invoice-dollar"></i> Billing</a
+            >
+          </li>
+          <li class="navbar_links">
+            <a href="complaints.html"
+              ><i class="fas fa-exclamation-circle"></i> Complaints</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div id="right">
+        <h1 id="PageTitle">Area Wise Water Management System</h1>
+        <nav>
+          <a href="billing_unpaidbilling.html">Unpaid Billings</a>
+          <a href="billing.html">Add Billings</a>
+          <a href="billing_updateBilling.html">Update Bill</a>
+        </nav>
+
+        <!-- Billing Payment Status Update Form -->
+        <div id="center">
+          <h2>Update Payment Status</h2>
+          <form id="updatePaymentForm">
+            <div class="form-group">
+              <label for="billing_id">Billing ID:</label>
+              <input
+                type="number"
+                id="billing_id"
+                required
+                placeholder="Enter Billing ID"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="payment_status">Payment Status:</label>
+              <select id="payment_status" required>
+                <option value="Paid">Paid</option>
+                <option value="Unpaid">Unpaid</option>
+              </select>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              Update Payment Status
+            </button>
+          </form>
+
+          <!-- Response message will be displayed here -->
+          <p id="responseMessage"></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("updatePaymentForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const billing_id = document.getElementById("billing_id").value;
+          const payment_status =
+            document.getElementById("payment_status").value;
+
+          try {
+            const response = await fetch(
+              "http://localhost:3000/api/billing/updateStatus",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  Billing_ID: billing_id,
+                  Payment_Status: payment_status,
+                }),
+              }
+            );
+
+            const result = await response.json();
+
+            if (response.ok) {
+              document.getElementById("responseMessage").innerHTML = `
+              ${result.message}
+            `;
+              document.getElementById("updatePaymentForm").reset();
+            } else {
+              document.getElementById("responseMessage").innerText =
+                "❌ Error: " + result.message;
+            }
+          } catch (error) {
+            console.error(error);
+            document.getElementById("responseMessage").innerText =
+              "❌ Something went wrong.";
+          }
+        });
+    </script>
+  </body>
+</html>

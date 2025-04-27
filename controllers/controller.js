@@ -198,6 +198,33 @@ const getAllDistributionData = (req, res, next) => {
   });
 };
 //billing
+const updateBillingStatus = (req, res, next) => {
+  const { Billing_ID, Payment_Status } = req.body;
+
+  // Validate input data
+  if (!Billing_ID || !Payment_Status) {
+    return res.status(400).json({ message: "Billing ID and Payment Status are required!" });
+  }
+
+  // Query to update payment status
+  const query = `
+    UPDATE Billing
+    SET Payment_Status = ?
+    WHERE Billing_ID = ?;
+  `;
+
+  db.query(query, [Payment_Status, Billing_ID], (err, result) => {
+    if (err) return next(err);
+
+    if (result.affectedRows > 0) {
+      res.status(200).json({ message: "Payment status updated successfully!" });
+    } else {
+      res.status(404).json({ message: "Billing record not found!" });
+    }
+  });
+};
+
+
 const getUnpaidBillsSorted = (req, res, next) => {
   const query = `
     SELECT *
@@ -315,12 +342,10 @@ const addMonitoring = (req, res, next) => {
       if (err) return next(err);
 
       // Successfully inserted new monitoring record
-      res
-        .status(201)
-        .json({
-          message: "Monitoring record added successfully",
-          Monitoring_ID: result.insertId,
-        });
+      res.status(201).json({
+        message: "Monitoring record added successfully",
+        Monitoring_ID: result.insertId,
+      });
     }
   );
 };
@@ -416,4 +441,5 @@ module.exports = {
   getAreaMonitoringReport,
   addArea,
   addMonitoring,
+  updateBillingStatus,
 };
