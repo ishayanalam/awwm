@@ -21,5 +21,6 @@ router.post("/distribution-add", controller.addDistribution);
 router.post("/billing-new", controller.addBilling);
 router.get("/monitoring/area-report", controller.getAreaMonitoringReport);
 router.post("/area/add-new", controller.addArea);
+router.post("/monitoring/add-new", controller.addMonitoring);
 
 module.exports = router;

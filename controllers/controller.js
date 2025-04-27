@@ -277,6 +277,54 @@ const getAllMonitoring = (req, res, next) => {
     res.json(results);
   });
 };
+const addMonitoring = (req, res, next) => {
+  const {
+    Area_ID,
+    Monitoring_Date,
+    Usage_Volume,
+    Water_Quality_Status,
+    Water_Pressure,
+  } = req.body;
+
+  // Validate if all required fields are provided
+  if (
+    !Area_ID ||
+    !Monitoring_Date ||
+    !Usage_Volume ||
+    !Water_Quality_Status ||
+    !Water_Pressure
+  ) {
+    return res.status(400).json({ message: "All fields are required!" });
+  }
+
+  const query = `
+    INSERT INTO Monitoring (Area_ID, Monitoring_Date, Usage_Volume, Water_Quality_Status, Water_Pressure)
+    VALUES (?, ?, ?, ?, ?);
+  `;
+
+  db.query(
+    query,
+    [
+      Area_ID,
+      Monitoring_Date,
+      Usage_Volume,
+      Water_Quality_Status,
+      Water_Pressure,
+    ],
+    (err, result) => {
+      if (err) return next(err);
+
+      // Successfully inserted new monitoring record
+      res
+        .status(201)
+        .json({
+          message: "Monitoring record added successfully",
+          Monitoring_ID: result.insertId,
+        });
+    }
+  );
+};
+
 // Update monitoring status and date
 const updateMonitoringData_waterQuality = (req, res, next) => {
   const { Monitoring_ID, Water_Quality_Status, Monitoring_Date } = req.body;
@@ -367,4 +415,5 @@ module.exports = {
   addBilling,
   getAreaMonitoringReport,
   addArea,
+  addMonitoring,
 };

@@ -4,34 +4,138 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AWWMS - Monitoring</title>
-    <link rel="stylesheet" href="../assets/style/style.css">
+    <link rel="stylesheet" href="../assets/style/users_addNew.css" />
   </head>
   <body>
     <div class="container">
-        <div id="left">
-          <h1 id="current_page_title">Monitoring</h1>
-            <ul id="navbar">
-              <li class="navbar_links"><a href="index.html">Dashboard</a></li>
-              <li class="navbar_links"><a href="users.html">Users</a></li>
-              <li class="navbar_links"><a href="areas.html">Areas</a></li>
-              <li class="navbar_links"><a href="distribution.html">Distribution</a></li>
-              <li class="navbar_links"><a href="monitoring.html">Monitoring</a></li>
-              <li class="navbar_links"><a href="billing.html">Billing</a></li>
-              <li class="navbar_links"><a href="complaints.html">Complaints</a></li>
-            </ul>
-          </div>
-          <div id="right">
-            <nav>
+      <div id="left">
+        <h1 id="current_page_title">Monitoring</h1>
+        <ul id="navbar">
+          <li class="navbar_links"><a href="index.html">Dashboard</a></li>
+          <li class="navbar_links"><a href="users.html">Users</a></li>
+          <li class="navbar_links"><a href="areas.html">Areas</a></li>
+          <li class="navbar_links"><a href="distribution.html">Distribution</a></li>
+          <li class="navbar_links"><a href="monitoring.html">Monitoring</a></li>
+          <li class="navbar_links"><a href="billing.html">Billing</a></li>
+          <li class="navbar_links"><a href="complaints.html">Complaints</a></li>
+        </ul>
+      </div>
+      <div id="right">
+        <nav>
           <h1 id="PageTitle">Area Wise Water Management System</h1>
           <a href="monitoring_HightUsageAreas.html">High Usage Areas</a>
           <a href="monitoring_showallmonitoring.html">Monitored Areas</a>
-          <a href="M_Addmonitonitoring.html">Add Monitoring</a>
-            </nav>
-          
-        </div>
-      </div>
+          <a href="monitoring.html">Add Monitoring</a>
+        </nav>
 
+        <!-- Add Monitoring Form -->
+        <form id="addMonitoringForm">
+          <h2>Add New Monitoring Record</h2>
 
+          <div class="form-group">
+            <label for="area_id">Area ID:</label>
+            <input
+              type="number"
+              id="area_id"
+              required
+              placeholder="Enter Area ID"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="monitoring_date">Monitoring Date:</label>
+            <input type="date" id="monitoring_date" required />
+          </div>
+
+          <div class="form-group">
+            <label for="usage_volume">Usage Volume:</label>
+            <input
+              type="number"
+              id="usage_volume"
+              required
+              placeholder="Enter Usage Volume"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="water_quality_status">Water Quality Status:</label>
+            <select id="water_quality_status" required>
+              <option value="Good">Good</option>
+              <option value="Average">Average</option>
+              <option value="Not Good">Not Good</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="water_pressure">Water Pressure:</label>
+            <select id="water_pressure" required>
+              <option value="High">High</option>
+              <option value="Low">Low</option>
+              <option value="Normal">Normal</option>
+            </select>
+          </div>
+
+          <button type="submit" class="submit-btn">Submit</button>
+        </form>
+
+        <!-- Response message will be displayed here -->
+        <p id="responseMessage"></p>
       </div>
-    </body>
-  </html>
+    </div>
+
+    <script>
+      document
+        .getElementById("addMonitoringForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const area_id = document.getElementById("area_id").value;
+          const monitoring_date =
+            document.getElementById("monitoring_date").value;
+          const usage_volume = document.getElementById("usage_volume").value;
+          const water_quality_status = document.getElementById(
+            "water_quality_status"
+          ).value;
+          const water_pressure =
+            document.getElementById("water_pressure").value;
+
+          try {
+            const response = await fetch(
+              "http://localhost:3000/api/monitoring/add-new",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  Area_ID: area_id,
+                  Monitoring_Date: monitoring_date,
+                  Usage_Volume: usage_volume,
+                  Water_Quality_Status: water_quality_status,
+                  Water_Pressure: water_pressure,
+                }),
+              }
+            );
+
+            const result = await response.json(); // If the response is not valid JSON, this will throw an error.
+
+            if (response.ok) {
+              document.getElementById("responseMessage").innerHTML = `
+              ${result.message} <br>
+              Monitoring ID: <strong>${result.Monitoring_ID}</strong>
+            `;
+              document.getElementById("addMonitoringForm").reset();
+            } else {
+              // If there is an error, display it
+              document.getElementById("responseMessage").innerText =
+                "❌ Error: " + (result.message || "Unknown error");
+            }
+          } catch (error) {
+            console.error(error);
+            document.getElementById("responseMessage").innerText =
+              "❌ Something went wrong. Please try again.";
+          }
+        });
+    </script>
+  </body>
+</html>
