@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -33,4 +33,130 @@
     </div>
   </div>
 </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AWWMS - Billing</title>
+  <link rel="stylesheet" href="../assets/style/users_addNew.css"/>
+</head>
+<body>
+  <div class="container">
+    <div id="left">
+      <h1 id="current_page_title">Billing</h1>
+      <ul id="navbar">
+        <li class="navbar_links"><a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li class="navbar_links"><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+        <li class="navbar_links"><a href="areas.html"><i class="fas fa-map-marker-alt"></i> Areas</a></li>
+        <li class="navbar_links"><a href="distribution.html"><i class="fas fa-truck"></i> Distribution</a></li>
+        <li class="navbar_links"><a href="monitoring.html"><i class="fas fa-chart-line"></i> Monitoring</a></li>
+        <li class="navbar_links active"><a href="billing.html"><i class="fas fa-file-invoice-dollar"></i> Billing</a></li>
+        <li class="navbar_links"><a href="complaints.html"><i class="fas fa-exclamation-circle"></i> Complaints</a></li>
+      </ul>
+    </div>
+
+    <div id="right">
+      <h1 id="PageTitle">Area Wise Water Management System</h1>
+      <nav>
+        <a href="billing_unpaidbilling.html">Unpaid Billings</a>
+        <a href="billing.html">Add Billings</a>
+      </nav>
+      <div id="center">
+        <!-- Add Billing Form -->
+        <form id="addBillingForm">
+          <h2>Add New Billing Record</h2>
+
+          <div class="form-group">
+            <label for="billing_date">Billing Date:</label>
+            <input type="date" id="billing_date" required />
+          </div>
+
+          <div class="form-group">
+            <label for="usage_volume">Usage Volume:</label>
+            <input type="number" id="usage_volume" step="0.01" required placeholder="Enter Usage Volume" />
+          </div>
+
+          <div class="form-group">
+            <label for="rate_per_unit">Rate Per Unit:</label>
+            <input type="number" id="rate_per_unit" step="0.01" required placeholder="Enter Rate Per Unit" />
+          </div>
+
+          <div class="form-group">
+            <label for="total_amount">Total Amount:</label>
+            <input type="number" id="total_amount" step="0.01" required placeholder="Enter Total Amount" />
+          </div>
+
+          <div class="form-group">
+            <label for="payment_status">Payment Status:</label>
+            <select id="payment_status" required>
+              <option value="Unpaid">Unpaid</option>
+              <option value="Paid">Paid</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="user_id">User ID:</label>
+            <input type="number" id="user_id" required placeholder="Enter User ID" />
+          </div>
+
+          <button type="submit" class="submit-btn">Submit</button>
+        </form>
+
+        <!-- Response message will be displayed here -->
+        <p id="responseMessage"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("addBillingForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const billing_date = document.getElementById("billing_date").value;
+      const usage_volume = parseFloat(document.getElementById("usage_volume").value);
+      const rate_per_unit = parseFloat(document.getElementById("rate_per_unit").value);
+      const total_amount = parseFloat(document.getElementById("total_amount").value);
+      const payment_status = document.getElementById("payment_status").value;
+      const user_id = parseInt(document.getElementById("user_id").value);
+
+      try {
+        const response = await fetch("http://localhost:3000/api/billing-new", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            Billing_Date: billing_date,
+            Usage_Volume: usage_volume,
+            Rate_Per_Unit: rate_per_unit,
+            Total_Amount: total_amount,
+            Payment_Status: payment_status,
+            User_ID: user_id,
+          }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          document.getElementById("responseMessage").innerHTML = `
+            ${result.message} <br>
+            Billing ID: <strong>${result.Billing_ID}</strong>
+          `;
+          document.getElementById("addBillingForm").reset();
+        } else {
+          document.getElementById("responseMessage").innerText =
+            "❌ Error: " + result.message;
+        }
+      } catch (error) {
+        console.error(error);
+        document.getElementById("responseMessage").innerText =
+          "❌ Something went wrong.";
+      }
+    });
+  </script>
+</body>
 </html>
+
