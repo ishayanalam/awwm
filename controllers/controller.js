@@ -33,8 +33,18 @@ const addUser = (req, res, next) => {
     }
   );
 };
-const getUser = (req, res) => {
-  res.send("Get user called");
+const getAllUserInfo = (req, res, next) => {
+  const query = `
+    SELECT *
+    FROM userandarea
+    ORDER BY User_ID ASC;  -- You can change the sorting criteria as per your requirement
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) return next(err);
+
+    res.json(results); // Return the results as JSON
+  });
 };
 
 //area
@@ -462,7 +472,7 @@ const getAreaMonitoringReport = (req, res, next) => {
 console.log("all the controllers loaded");
 module.exports = {
   addUser,
-  getUser,
+
   getUsersByArea,
   getActiveComplaints,
   resolveComplaint,
@@ -479,4 +489,5 @@ module.exports = {
   addMonitoring,
   updateBillingStatus,
   getComplaintDataById,
+  getAllUserInfo,
 };

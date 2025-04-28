@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -30,5 +30,101 @@
         </div>
       </div>
     </div>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AWWMS - Users</title>
+    <link rel="stylesheet" href="../assets/style/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="left">
+        <h1 id="current_page_title">Users</h1>
+        <ul id="navbar">
+          <li class="navbar_links"><a href="index.html">Dashboard</a></li>
+          <li class="navbar_links"><a href="users.html">Users</a></li>
+          <li class="navbar_links"><a href="areas.html">Areas</a></li>
+          <li class="navbar_links">
+            <a href="distribution.html">Distribution</a>
+          </li>
+          <li class="navbar_links"><a href="monitoring.html">Monitoring</a></li>
+          <li class="navbar_links"><a href="billing.html">Billing</a></li>
+          <li class="navbar_links"><a href="complaints.html">Complaints</a></li>
+        </ul>
+      </div>
+
+      <div id="right">
+        <h1 id="PageTitle">Area Wise Water Management System</h1>
+        <a href="users_addNew.html">Add New User</a>
+        <a href="users_ShowbyArea.html">Show by Area</a>
+        <a href="users.html">All Users</a>
+
+        <!-- User Data Table -->
+        <h2>All Users</h2>
+        <table id="usersTable">
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Account Status</th>
+              <th>Area Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table rows will be inserted here dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      // Fetch user data from API
+      async function fetchUserData() {
+        try {
+          const response = await fetch(
+            "http://localhost:3000/api/users/get-user-info"
+          );
+          const users = await response.json();
+
+          if (response.ok) {
+            // Get the table body element
+            const tableBody = document.querySelector("#usersTable tbody");
+            tableBody.innerHTML = ""; // Clear existing rows
+
+            // Iterate through the users and create table rows
+            users.forEach((user) => {
+              const row = document.createElement("tr");
+
+              // Create table cells for each user attribute
+              row.innerHTML = `
+                <td>${user.User_ID}</td>
+                <td>${user.Name}</td>
+                <td>${user.Phone}</td>
+                <td>${user.Address}</td>
+                <td>${user.Account_Status}</td>
+                <td>${user.Area_Name}</td>
+              `;
+
+              // Append the row to the table body
+              tableBody.appendChild(row);
+            });
+          } else {
+            console.error("Failed to fetch user data");
+          }
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+
+      // Call the function to fetch user data when the page loads
+      document.addEventListener("DOMContentLoaded", fetchUserData);
+    </script>
   </body>
 </html>

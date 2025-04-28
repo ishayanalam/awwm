@@ -24,5 +24,6 @@ router.post("/area/add-new", controller.addArea);
 router.post("/monitoring/add-new", controller.addMonitoring);
 router.post("/billing/updateStatus", controller.updateBillingStatus);
 router.get("/complaints/:complaint_id", controller.getComplaintDataById);
+router.get("/users/get-user-info", controller.getAllUserInfo);
 
 module.exports = router;
