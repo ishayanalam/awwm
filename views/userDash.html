@@ -1,99 +1,195 @@
 <!DOCTYPE html>
- <html lang="en">
-   <head>
-     <meta charset="UTF-8" />
-     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <title>AWWMS - Dashboard</title>
-     <link rel="stylesheet" href="userDash.css" />
-     
-   </head>
-   <body>
-     <div class="container">
-       <div id="left">
-         <h1 id="current_page_title">User Dashboard</h1>
-         <ul id="navbar">
-           <li class="navbar_links"><a href="userDash.html">Dashboard</a></li>
-         </ul>
-       </div>
- 
-       <div id="right">
-         <h1 id="PageTitle">Area Wise Water Management System</h1>
- 
-         <div class="dashboard_section">
-           <h2>User Profile</h2>
-           <div id="dashboard_stats">
-             <p><strong>Name:</strong></p>
-             <p><strong>Address:</strong></p>
-             <p><strong>Meter Id:</strong></p>
-           </div>
-         </div>
- 
-         <div class="dashboard_section">
-           <h2>Quick Actions</h2>
-           <button class="action_button" onclick="openPopup('usagePopup')">Water Usage Monitoring</button>
-           <button class="action_button" onclick="openPopup('billingPopup')">Billing Info</button>
-           <button class="action_button" onclick="openPopup('complaintPopup')">File Complaint</button>
-         </div>
-       </div>
-     </div>
- 
-     <div id="usagePopup" class="popup">
-       <div class="popup-content">
-         <div class="popup-header">
-           <h2>Water Usage Monitoring</h2>
-           <button class="close-btn" onclick="closePopup('usagePopup')">&times;</button>
-         </div>
-         <p>View your current and historical water usage data</p>
-         <div class="form-group">
-           <label for="usageDate">Select Date Range:</label>
-           <input type="date" id="usageDate">
-         </div>
-         <button class="action_button" onclick="alert('Usage data will be displayed here')">View Usage</button>
-       </div>
-     </div>
- 
-     <div id="billingPopup" class="popup">
-       <div class="popup-content">
-         <div class="popup-header">
-           <h2>Billing Information</h2>
-           <button class="close-btn" onclick="closePopup('billingPopup')">&times;</button>
-         </div>
-         <p>Your current billing information and payment history.</p>
-         <div class="form-group">
-           <label>Current Balance:</label>
-           <p></p>
-         </div>
-         <div class="form-group">
-           <label>Due Date:</label>
-           <p></p>
-         </div>
-         <button class="action_button" onclick="alert('Payment processing.....')">Make Payment</button>
-       </div>
-     </div>
- 
-     <div id="complaintPopup" class="popup">
-       <div class="popup-content">
-         <div class="popup-header">
-           <h2>File a Complaint</h2>
-           <button class="close-btn" onclick="closePopup('complaintPopup')">&times;</button>
-         </div>
-         <div class="form-group">
-           <label for="complaintType">Complaint Type:</label>
-           <select id="complaintType">
-             <option>Water Quality</option>
-             <option>Billing Issue</option>
-             <option>Service Interruption</option>
-             <option>Other</option>
-           </select>
-         </div>
-         <div class="form-group">
-           <label for="complaintDetails">Details:</label>
-           <textarea id="complaintDetails" rows="4" style="width: 100%; padding: 10px;"></textarea>
-         </div>
-         <button class="action_button" onclick="alert('Complaint submitted successfully!')">Submit Complaint</button>
-       </div>
-     </div>
- 
-     
-   </body>
- </html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Water Management System</title>
+    <link rel="stylesheet" href="/assets/style/userDash.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Water Management System</h1>
+
+      <div class="search-box">
+        <form>
+          <label for="userId">User ID:</label>
+          <input type="text" id="userId" name="userId" />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>User Information</h2>
+        <div class="user-info">
+          <div class="info-field">
+            <label for="userIdInfo">User ID:</label>
+            <input type="text" id="userIdInfo" readonly value="" />
+          </div>
+          <div class="info-field">
+            <label for="meterId">Meter ID:</label>
+            <input type="text" id="meterId" readonly value="" />
+          </div>
+          <div class="info-field">
+            <label for="accountStatus">Account Status:</label>
+            <input type="text" id="accountStatus" readonly value="" />
+          </div>
+          <div class="info-field">
+            <label for="name">Name:</label>
+            <input type="text" id="name" readonly value="" />
+          </div>
+          <div class="info-field">
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" readonly value="1" />
+          </div>
+          <div class="info-field">
+            <label for="address">Address:</label>
+            <input type="text" id="address" readonly value="" />
+          </div>
+          <div class="info-field">
+            <label for="areaName">Area Name:</label>
+            <input type="text" id="areaName" readonly value="North District" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Billing Information</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Billing ID</th>
+              <th>Billing Date</th>
+              <th>Usage Volume</th>
+              <th>Total Amount</th>
+              <th>Payment Status</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>Active Complaints</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Complaint ID</th>
+              <th>Issue Type</th>
+              <th>Submission Date</th>
+              <th>Status</th>
+
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <script>
+        const form = document.querySelector(".search-box form");
+      
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+      
+          const userId = document.getElementById("userId").value;
+      
+          if (!userId) {
+            alert("Please enter a User ID");
+            return;
+          }
+      
+          fetch(`http://localhost:3000/api/user-info/${userId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.length === 0) {
+                alert("User not found!");
+                return;
+              }
+      
+              const user = data[0]; // Only one user
+      
+              // Fill user info
+              document.getElementById("userIdInfo").value = user.User_ID || "";
+              document.getElementById("meterId").value = user.Meter_ID || "";
+              document.getElementById("accountStatus").value = user.Account_Status || "";
+              document.getElementById("name").value = user.Name || "";
+              document.getElementById("phone").value = user.Phone || "";
+              document.getElementById("address").value = user.Address || "";
+              document.getElementById("areaName").value = user.Area_Name || "";
+      
+              // Also load billing and complaints
+              loadUserBills(userId);
+              loadUserComplaints(userId);
+            })
+            .catch((error) => {
+              console.error("Error fetching user data:", error);
+              alert("Something went wrong while fetching user data.");
+            });
+        });
+      
+        function loadUserBills(userId) {
+          fetch(`http://localhost:3000/api/user/show-bill/${userId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              const billingTableBody = document.querySelectorAll("table tbody")[0]; // First tbody = billing
+              billingTableBody.innerHTML = ""; // Clear previous
+      
+              if (data.length === 0) {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td colspan="6">No billing records found</td>`;
+                billingTableBody.appendChild(row);
+                return;
+              }
+      
+              data.forEach((bill) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                  <td>${bill.User_ID}</td>
+                  <td>${bill.Billing_ID}</td>
+                  <td>${new Date(bill.Billing_Date).toLocaleDateString()}</td>
+                  <td>${bill.Usage_Volume}</td>
+                  <td>${bill.Total_Amount}</td>
+                  <td>${bill.Payment_Status}</td>
+                `;
+                billingTableBody.appendChild(row);
+              });
+            })
+            .catch((error) => {
+              console.error("Error fetching billing data:", error);
+            });
+        }
+      
+        function loadUserComplaints(userId) {
+          fetch(`http://localhost:3000/api/user/show-complaints/${userId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              const complaintTableBody = document.querySelectorAll("table tbody")[1]; // Second tbody = complaints
+              complaintTableBody.innerHTML = ""; // Clear previous
+      
+              if (data.length === 0) {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td colspan="5">No active complaints found</td>`;
+                complaintTableBody.appendChild(row);
+                return;
+              }
+      
+              data.forEach((complaint) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                  <td>${complaint.Complaint_ID}</td>
+                  <td>${complaint.Issue_Type}</td>
+                  <td>${new Date(complaint.Submission_Date).toLocaleDateString()}</td>
+                  <td>${complaint.Status}</td>
+                  
+                `;
+                complaintTableBody.appendChild(row);
+              });
+            })
+            .catch((error) => {
+              console.error("Error fetching complaints data:", error);
+            });
+        }
+      </script>
+      
+  </body>
+</html>
