@@ -143,7 +143,7 @@ const getActiveComplaints = (req, res, next) => {
   SELECT *
   FROM Complaint
   WHERE status = 'Pending'
-  ORDER BY Submission_Date ASC
+  ORDER BY Submission_Date DESC
 `;
 
   db.query(query, (err, results) => {
