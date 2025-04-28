@@ -504,8 +504,15 @@ const userSite_BillInfo = (req, res, next) => {
   });
 };
 
-const userSite_submitComplaint = (req, res, next) => {
+const userSite_submitComplaint = (req, res) => {
   const { userId, issueType } = req.body;
+
+  // Check if userId and issueType are provided
+  if (!userId || !issueType) {
+    return res.status(400).json({
+      message: "User ID and Issue Type are required.",
+    });
+  }
 
   const query = `
     INSERT INTO Complaint (User_ID, Area_ID, Issue_Type, Submission_Date, Status)
@@ -515,9 +522,21 @@ const userSite_submitComplaint = (req, res, next) => {
   `;
 
   db.query(query, [userId, issueType, userId], (err, result) => {
-    if (err) return next(err);
+    if (err) {
+      console.error("Database error:", err); // Log the error for debugging
+      return res.status(500).json({
+        message: "Failed to submit the complaint. Please try again later.",
+        error: err.message, // You can return the error message for debugging, but avoid exposing sensitive info in production.
+      });
+    }
 
-    res.json({
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        message: "User not found. Unable to submit complaint.",
+      });
+    }
+
+    res.status(201).json({
       message: "Complaint submitted successfully!",
       complaintId: result.insertId,
     });

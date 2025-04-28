@@ -45,14 +45,16 @@ h1 {
 }
 
 .user-info {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column; /* Stack the fields vertically */
   gap: 10px;
 }
 
 .info-field {
   margin-bottom: 10px;
+  display: block; /* Ensures block-level display */
 }
+
 
 .info-field label {
   display: block;
