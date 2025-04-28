@@ -469,6 +469,85 @@ const getAreaMonitoringReport = (req, res, next) => {
   });
 };
 
+// user site
+
+const userSite_fullInfo = (req, res, next) => {
+  const userId = req.params.id; // Get user ID from the URL
+
+  const query = `
+    SELECT *
+    FROM UserFullInfo_View
+    WHERE User_ID = ?
+  `;
+
+  db.query(query, [userId], (err, results) => {
+    if (err) return next(err);
+
+    res.json(results);
+  });
+};
+
+const userSite_BillInfo = (req, res, next) => {
+  const userId = req.params.id; // get user id
+
+  const query = `
+    SELECT *
+    FROM Billing
+    WHERE User_ID = ?
+    ORDER BY Billing_Date DESC; 
+  `;
+
+  db.query(query, [userId], (err, results) => {
+    if (err) return next(err);
+
+    res.json(results);
+  });
+};
+
+const userSite_submitComplaint = (req, res, next) => {
+  const { userId, issueType } = req.body;
+
+  const query = `
+    INSERT INTO Complaint (User_ID, Area_ID, Issue_Type, Submission_Date, Status)
+    SELECT ?, Area_ID, ?, NOW(), 'Pending'
+    FROM Users
+    WHERE User_ID = ?
+  `;
+
+  db.query(query, [userId, issueType, userId], (err, result) => {
+    if (err) return next(err);
+
+    res.json({
+      message: "Complaint submitted successfully!",
+      complaintId: result.insertId,
+    });
+  });
+};
+
+const userSite_getUserComplaints = (req, res, next) => {
+  const userId = req.params.id; // User ID from URL
+
+  const query = `
+    SELECT 
+      Complaint.Complaint_ID,
+      Complaint.Issue_Type,
+      Complaint.Submission_Date,
+      Complaint.Status,
+      Complaint.Resolution_Date,
+      Area.Location AS Area_Name
+    FROM Complaint
+    JOIN Area ON Complaint.Area_ID = Area.Area_ID
+    WHERE Complaint.User_ID = ?
+    ORDER BY Complaint.Submission_Date DESC;
+  `;
+
+  db.query(query, [userId], (err, results) => {
+    if (err) return next(err);
+
+    res.json(results);
+  });
+};
+
 console.log("all the controllers loaded");
 module.exports = {
   addUser,
@@ -490,4 +569,8 @@ module.exports = {
   updateBillingStatus,
   getComplaintDataById,
   getAllUserInfo,
+  userSite_fullInfo,
+  userSite_BillInfo,
+  userSite_submitComplaint,
+  userSite_getUserComplaints,
 };

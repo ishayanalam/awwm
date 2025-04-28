@@ -26,4 +26,10 @@ router.post("/billing/updateStatus", controller.updateBillingStatus);
 router.get("/complaints/:complaint_id", controller.getComplaintDataById);
 router.get("/users/get-user-info", controller.getAllUserInfo);
 
+// user site
+
+router.get("/user-info/:id", controller.userSite_fullInfo);
+router.get("/user/show-bill/:id", controller.userSite_BillInfo);
+router.post("/user/submit-complain", controller.userSite_submitComplaint);
+router.get("/user/show-complaints/:id", controller.userSite_getUserComplaints);
 module.exports = router;
