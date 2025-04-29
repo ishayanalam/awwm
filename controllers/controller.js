@@ -10,7 +10,7 @@ const { JWT_SECRET } = process.env;
 const addUser = (req, res, next) => {
   const { Name, Address, Area_ID, Meter_ID, Account_Status, Phone } = req.body;
 
-  // Validate if all required fields are provided
+  
   if (!Name || !Address || !Area_ID || !Meter_ID || !Account_Status || !Phone) {
     return res.status(400).json({ message: "All fields are required!" });
   }
@@ -26,7 +26,7 @@ const addUser = (req, res, next) => {
     (err, result) => {
       if (err) return next(err);
 
-      // Successfully inserted new user
+      // Success
       res
         .status(201)
         .json({ message: "User added successfully", userId: result.insertId });
@@ -51,7 +51,7 @@ const getAllUserInfo = (req, res, next) => {
 const addArea = (req, res, next) => {
   const { Location, WASA_Zone, Water_Source, Water_Supply_Capacity } = req.body;
 
-  // Validate if all required fields are provided
+  // Validate 
   if (!Location || !WASA_Zone || !Water_Source || !Water_Supply_Capacity) {
     return res.status(400).json({ message: "All fields are required!" });
   }
@@ -67,7 +67,7 @@ const addArea = (req, res, next) => {
     (err, result) => {
       if (err) return next(err);
 
-      // Successfully inserted new area
+      // Success
       res
         .status(201)
         .json({ message: "Area added successfully", areaId: result.insertId });
@@ -86,7 +86,7 @@ const getUsersByArea = (req, res, next) => {
 
   db.query(query, [areaId], (err, results) => {
     if (err) {
-      return next(err); // Will be caught by global error handler
+      return next(err); 
     }
 
     res.json(results);
@@ -110,7 +110,7 @@ const getAllAreas = (req, res, next) => {
 //complain
 
 const getComplaintDataById = (req, res, next) => {
-  const complaintId = req.params.complaint_id; // Extracting complaint_id from the URL parameter
+  const complaintId = req.params.complaint_id; 
 
   const query = `
     SELECT 
@@ -128,13 +128,13 @@ const getComplaintDataById = (req, res, next) => {
   `;
 
   db.query(query, [complaintId], (err, results) => {
-    if (err) return next(err); // If an error occurs, pass it to the next middleware
+    if (err) return next(err);
 
     if (results.length === 0) {
       return res.status(404).json({ message: "Complaint not found" });
     }
 
-    res.json(results[0]); // Return the first result as there's only one complaint with the given ID
+    res.json(results[0]); 
   });
 };
 
@@ -153,7 +153,7 @@ const getActiveComplaints = (req, res, next) => {
 };
 const resolveComplaint = (req, res, next) => {
   const complaintId = req.params.id;
-  const { complaintStatus } = req.body; // Get the new status from the request body
+  const { complaintStatus } = req.body; // request body
 
   if (!complaintStatus) {
     return res.status(400).json({ message: "Complaint status is required" });
@@ -246,14 +246,14 @@ const getAllDistributionData = (req, res, next) => {
 const updateBillingStatus = (req, res, next) => {
   const { Billing_ID, Payment_Status } = req.body;
 
-  // Validate input data
+  // Validate 
   if (!Billing_ID || !Payment_Status) {
     return res
       .status(400)
       .json({ message: "Billing ID and Payment Status are required!" });
   }
 
-  // Query to update payment status
+  
   const query = `
     UPDATE Billing
     SET Payment_Status = ?
@@ -282,12 +282,12 @@ const getUnpaidBillsSorted = (req, res, next) => {
   db.query(query, (err, results) => {
     if (err) return next(err);
 
-    // If no unpaid bills are found
+    // If nothing found
     if (results.length === 0) {
       return res.status(404).json({ message: "No unpaid bills found." });
     }
 
-    // Send the unpaid bills in the response
+    //response
     res.json(results);
   });
 };
@@ -302,7 +302,7 @@ const addBilling = (req, res, next) => {
     User_ID,
   } = req.body;
 
-  // Validate input
+  // Validate
   if (
     !Billing_Date ||
     !Usage_Volume ||
@@ -359,7 +359,7 @@ const addMonitoring = (req, res, next) => {
     Water_Pressure,
   } = req.body;
 
-  // Validate if all required fields are provided
+  // Validate 
   if (
     !Area_ID ||
     !Monitoring_Date ||
@@ -387,7 +387,7 @@ const addMonitoring = (req, res, next) => {
     (err, result) => {
       if (err) return next(err);
 
-      // Successfully inserted new monitoring record
+      // Success
       res.status(201).json({
         message: "Monitoring record added successfully",
         Monitoring_ID: result.insertId,
@@ -400,7 +400,7 @@ const addMonitoring = (req, res, next) => {
 const updateMonitoringData_waterQuality = (req, res, next) => {
   const { Monitoring_ID, Water_Quality_Status, Monitoring_Date } = req.body;
 
-  // Validate input
+  // Validate
   if (!Monitoring_ID || !Water_Quality_Status || !Monitoring_Date) {
     return res.status(400).json({ message: "All fields are required!" });
   }
@@ -450,7 +450,7 @@ const getAreasAboveAvgUsage = (req, res, next) => {
         .json({ message: "No areas found with above average usage volume." });
     }
 
-    // Send the results in the response
+    // response
     res.json(results);
   });
 };
@@ -472,7 +472,7 @@ const getAreaMonitoringReport = (req, res, next) => {
 // user site
 
 const userSite_fullInfo = (req, res, next) => {
-  const userId = req.params.id; // Get user ID from the URL
+  const userId = req.params.id; // Get from the URL
 
   const query = `
     SELECT *
@@ -507,7 +507,7 @@ const userSite_BillInfo = (req, res, next) => {
 const userSite_submitComplaint = (req, res) => {
   const { userId, issueType } = req.body;
 
-  // Check if userId and issueType are provided
+  
   if (!userId || !issueType) {
     return res.status(400).json({
       message: "User ID and Issue Type are required.",
@@ -526,7 +526,7 @@ const userSite_submitComplaint = (req, res) => {
       console.error("Database error:", err); // Log the error for debugging
       return res.status(500).json({
         message: "Failed to submit the complaint. Please try again later.",
-        error: err.message, // You can return the error message for debugging, but avoid exposing sensitive info in production.
+        error: err.message, 
       });
     }
 
