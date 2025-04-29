@@ -9,5 +9,4 @@ AWWMS is a web-based management dashboard designed for monitoring and managing u
 - **Database:** MySQL
 
 git clone https://github.com/yourusername/awwms.git
-cd awwms
 
