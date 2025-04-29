@@ -1,5 +1,13 @@
-# awwm
-Area Wise Water Management
+# Area Wise Water Management System (AWWMS)
 
-<h2> Area Wise Water Management <h2>
-<h3> Tech Stack : HTML, CSS, SQL, ExpressJS, Javascript<h3>
+AWWMS is a web-based management dashboard designed for monitoring and managing user water consumption data area-wise. The system supports operations such as user and area management, water distribution tracking, billing, and complaint resolution.
+
+## 🧰 Technologies Used
+
+- **Frontend:** HTML, CSS, JavaScript
+- **Backend:** Node.js, Express.js
+- **Database:** MySQL
+
+git clone https://github.com/yourusername/awwms.git
+cd awwms
+
