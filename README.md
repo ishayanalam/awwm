@@ -8,5 +8,5 @@ AWWMS is a web-based management dashboard designed for monitoring and managing u
 - **Backend:** Node.js, Express.js
 - **Database:** MySQL
 
-git clone https://github.com/yourusername/awwms.git
+git clone https://github.com/ishayanalam/awwms.git
 
