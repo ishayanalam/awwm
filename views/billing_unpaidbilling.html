@@ -48,10 +48,10 @@
       <div id="right">
         <h1 id="PageTitle">Area Wise Water Management System</h1>
         <nav>
-        <a href="billing_unpaidbilling.html">Unpaid Billings</a>
-        <a href="billing.html">Add Billings</a>
-        <a href="billing_updateBilling.html">Update Bill</a>
-      </nav>
+          <a href="billing_unpaidbilling.html">Unpaid Billings</a>
+          <a href="billing.html">Add Billings</a>
+          <a href="billing_updateBilling.html">Update Bill</a>
+        </nav>
         <div id="bills_dashboard">
           <div class="dashboard_section">
             <h2>Unpaid Bills Overview</h2>
@@ -66,12 +66,9 @@
                   <th>Total Amount</th>
                   <th>Payment Status</th>
                   <th>User ID</th>
-                  <!-- <th>Area ID</th> -->
                 </tr>
               </thead>
-              <tbody id="billsTableBody">
-                <!-- Data will be injected here -->
-              </tbody>
+              <tbody id="billsTableBody"></tbody>
             </table>
           </div>
         </div>
@@ -82,8 +79,7 @@
       fetch("http://localhost:3000/api/bills/unpaid/sorted")
         .then((response) => response.json())
         .then((data) => {
-          console.log("Fetched bills:", data); // Debugging log
-
+          console.log("Fetched bills:", data);
           const tableBody = document.getElementById("billsTableBody");
 
           data.forEach((item) => {
@@ -120,10 +116,6 @@
             const userIdCell = document.createElement("td");
             userIdCell.textContent = item.User_ID;
             row.appendChild(userIdCell);
-
-            // const areaIdCell = document.createElement('td');
-            //   areaIdCell.textContent = item.Area_ID;
-            //   row.appendChild(areaIdCell);
 
             tableBody.appendChild(row);
           });

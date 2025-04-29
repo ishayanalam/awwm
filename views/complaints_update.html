@@ -29,8 +29,6 @@
           <a href="complaints_ActiveComplaints.html">Active Complaints</a>
           <a href="complaints_update.html">Update Complaints</a>
         </nav>
-
-        <!-- Complaint Information Display -->
         <div class="card">
           <h2>Complaint Details</h2>
           <form id="complaintForm">
@@ -70,8 +68,6 @@
               <label for="area_name">Area Name:</label>
               <input type="text" id="area_name" readonly />
             </div>
-
-            <!-- Complaint Status Update -->
             <h3>Update Complaint Status</h3>
             <div class="form-group">
               <label for="complaint_status">Complaint Status:</label>
@@ -84,8 +80,6 @@
 
             <button type="submit" class="submit-btn">Update Status</button>
           </form>
-
-          <!-- Response message will be displayed here -->
           <p id="responseMessage"></p>
         </div>
       </div>
@@ -101,7 +95,7 @@
           const result = await response.json();
 
           if (response.ok) {
-            // Fill the form with complaint data
+          
             document.getElementById("user_name").value = result.UserName;
             document.getElementById("phone").value = result.Phone;
             document.getElementById("issue_type").value = result.Issue_Type;
@@ -110,12 +104,12 @@
             document.getElementById("area_name").value = result.Area_Name;
           } else {
             document.getElementById("responseMessage").innerText =
-              result.message || "❌ Complaint not found";
+              result.message || "Complaint not found";
           }
         } catch (error) {
           console.error(error);
           document.getElementById("responseMessage").innerText =
-            "❌ Something went wrong.";
+            "Something went wrong.";
         }
       }
 
@@ -128,26 +122,26 @@
             document.getElementById("complaint_status").value;
           const complaintId = document.getElementById("complaint_id").value;
 
-          // Send the update request
+          // Send request
           fetch(`http://localhost:3000/api/complaints/resolve/${complaintId}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              complaintStatus: updatedStatus, // Send the status in the request body
+              complaintStatus: updatedStatus, // Send the request body
             }),
           })
             .then((response) => response.json())
             .then((data) => {
-              // Display the response message below the button
+              // Display the response message 
               document.getElementById("responseMessage").innerText =
-                "Status Changed"; // Show success message
+                "Status Changed";
             })
             .catch((error) => {
-              // Display the error message below the button
+              
               document.getElementById("responseMessage").innerText =
-                "❌ Error updating complaint status";
+                "Error updating complaint status";
             });
         });
     </script>

@@ -44,7 +44,7 @@
                 </tr>
               </thead>
               <tbody id="distributionTableBody">
-                <!-- Data will be inserted here -->
+        
               </tbody>
             </table>
 
@@ -58,7 +58,7 @@
             fetch('http://localhost:3000/api/distributions')
               .then(response => response.json())
               .then(data => {
-                console.log('Fetched distributions:', data); // Debugging
+                console.log('Fetched distributions:', data); 
       
                 const tableBody = document.getElementById('distributionTableBody');
       

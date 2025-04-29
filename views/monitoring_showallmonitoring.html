@@ -45,7 +45,7 @@
             </tr>
           </thead>
           <tbody id="monitoringTableBody">
-            <!-- Data will be inserted here by JavaScript -->
+          
           </tbody>
         </table>
       </div>
@@ -55,7 +55,7 @@
       fetch("http://localhost:3000/api/monitoring")
         .then((response) => response.json())
         .then((data) => {
-          console.log("Fetched monitoring data:", data); // Optional for debugging
+          console.log("Fetched monitoring data:", data);
 
           const tableBody = document.getElementById("monitoringTableBody");
 

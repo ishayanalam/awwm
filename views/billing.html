@@ -31,7 +31,7 @@
         <a href="billing_updateBilling.html">Update Bill</a>
       </nav>
       <div id="center">
-        <!-- Add Billing Form -->
+     
         <form id="addBillingForm">
           <h2>Add New Billing Record</h2>
 
@@ -71,7 +71,7 @@
           <button type="submit" class="submit-btn">Submit</button>
         </form>
 
-        <!-- Response message will be displayed here -->
+       
         <p id="responseMessage"></p>
       </div>
     </div>
@@ -114,12 +114,12 @@
           document.getElementById("addBillingForm").reset();
         } else {
           document.getElementById("responseMessage").innerText =
-            "❌ Error: " + result.message;
+            "Error: " + result.message;
         }
       } catch (error) {
         console.error(error);
         document.getElementById("responseMessage").innerText =
-          "❌ Something went wrong.";
+          "Something went wrong.";
       }
     });
   </script>

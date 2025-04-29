@@ -1,41 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AWWMS</title>
-    <link rel="stylesheet" href="../assets/style/style.css" />
-  </head>
-  <body>
-    <div class="container">
-      <div id="left">
-        <h1 id="current_page_title">Distribution</h1>
-        <ul id="navbar">
-          <li class="navbar_links"><a href="index.html">Dashboard</a></li>
-          <li class="navbar_links"><a href="users.html">Users</a></li>
-          <li class="navbar_links"><a href="areas.html">Areas</a></li>
-          <li class="navbar_links">
-            <a href="distribution.html">Distribution</a>
-          </li>
-          <li class="navbar_links"><a href="monitoring.html">Monitoring</a></li>
-          <li class="navbar_links"><a href="billing.html">Billing</a></li>
-          <li class="navbar_links"><a href="complaints.html">Complaints</a></li>
-        </ul>
-      </div>
-      <div id="right">
-        <nav>
-          <h1 id="PageTitle">Area Wise Water Management System</h1>
-          <a href="distribution_ShowAll.html">Show All</a>
-          <a href="distribution.html">Add new Distribution</a>
-        </nav>
-      </div>
-    </div>
-
-    
-      
-    </div>
-  </body>
-</html> -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -176,12 +138,12 @@
               document.getElementById("addDistributionForm").reset();
             } else {
               document.getElementById("responseMessage").innerText =
-                "❌ Error: " + result.message;
+                "Error: " + result.message;
             }
           } catch (error) {
             console.error(error);
             document.getElementById("responseMessage").innerText =
-              "❌ Something went wrong.";
+              "Something went wrong.";
           }
         });
     </script>

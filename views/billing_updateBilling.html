@@ -52,8 +52,6 @@
           <a href="billing.html">Add Billings</a>
           <a href="billing_updateBilling.html">Update Bill</a>
         </nav>
-
-        <!-- Billing Payment Status Update Form -->
         <div id="center">
           <h2>Update Payment Status</h2>
           <form id="updatePaymentForm">
@@ -79,8 +77,6 @@
               Update Payment Status
             </button>
           </form>
-
-          <!-- Response message will be displayed here -->
           <p id="responseMessage"></p>
         </div>
       </div>
@@ -120,12 +116,12 @@
               document.getElementById("updatePaymentForm").reset();
             } else {
               document.getElementById("responseMessage").innerText =
-                "❌ Error: " + result.message;
+                "Error: " + result.message;
             }
           } catch (error) {
             console.error(error);
             document.getElementById("responseMessage").innerText =
-              "❌ Something went wrong.";
+              "Something went wrong.";
           }
         });
     </script>

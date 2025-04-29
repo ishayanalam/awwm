@@ -43,7 +43,7 @@
               </tr>
             </thead>
             <tbody id="areasTableBody">
-              <!-- Data will be injected here -->
+             
             </tbody>
           </table>
 
@@ -56,7 +56,7 @@
     fetch('http://localhost:3000/api/areas')
       .then(response => response.json())
       .then(data => {
-        console.log('Fetched areas:', data); // Debugging
+        console.log('Fetched areas:', data); 
 
         const tableBody = document.getElementById('areasTableBody');
 

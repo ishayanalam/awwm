@@ -83,8 +83,6 @@
           <tbody></tbody>
         </table>
       </div>
-
-      <!-- Complaint Submission Form -->
       <div class="card">
         <h2>Submit a Complaint</h2>
         <form id="complaintForm">
@@ -121,9 +119,9 @@
               return;
             }
 
-            const user = data[0]; // Only one user
+            const user = data[0]; 
 
-            // Fill user info
+       
             document.getElementById("userIdInfo").value = user.User_ID || "";
             document.getElementById("meterId").value = user.Meter_ID || "";
             document.getElementById("accountStatus").value =
@@ -133,7 +131,7 @@
             document.getElementById("address").value = user.Address || "";
             document.getElementById("areaName").value = user.Area_Name || "";
 
-            // Also load billing and complaints
+          
             loadUserBills(userId);
             loadUserComplaints(userId);
           })
@@ -143,14 +141,14 @@
           });
       });
 
-      // Load user billing info
+    
       function loadUserBills(userId) {
         fetch(`http://localhost:3000/api/user/show-bill/${userId}`)
           .then((response) => response.json())
           .then((data) => {
             const billingTableBody =
-              document.querySelectorAll("table tbody")[0]; // First tbody = billing
-            billingTableBody.innerHTML = ""; // Clear previous
+              document.querySelectorAll("table tbody")[0]; 
+            billingTableBody.innerHTML = ""; 
 
             if (data.length === 0) {
               const row = document.createElement("tr");
@@ -177,14 +175,13 @@
           });
       }
 
-      // Load user complaints
       function loadUserComplaints(userId) {
         fetch(`http://localhost:3000/api/user/show-complaints/${userId}`)
           .then((response) => response.json())
           .then((data) => {
             const complaintTableBody =
-              document.querySelectorAll("table tbody")[1]; // Second tbody = complaints
-            complaintTableBody.innerHTML = ""; // Clear previous
+              document.querySelectorAll("table tbody")[1]; 
+            complaintTableBody.innerHTML = ""; 
 
             if (data.length === 0) {
               const row = document.createElement("tr");
@@ -211,7 +208,6 @@
           });
       }
 
-      // Handle complaint submission
       complaintForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
@@ -253,7 +249,7 @@
           });
       });
 
-      // Display messages (success/error)
+     
       function displayMessage(message, type) {
         messageDiv.textContent = message;
         messageDiv.style.display = "block";
